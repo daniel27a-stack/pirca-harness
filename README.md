@@ -18,5 +18,6 @@ next to the target repositories:
 /run-card ARQ-12     # run or resume a card
 ```
 
-The card must have a `Criterios de aceptación` section in Trello. See `CLAUDE.md` for the flow
+The card must have a `Necesidad` section in Trello: the BA agent turns it into acceptance
+criteria and the flow waits for your approval before designing anything. See `CLAUDE.md` for the flow
 and rules, `tasks/README.md` for the files each card produces, and `DEVLOG.md` for decisions.

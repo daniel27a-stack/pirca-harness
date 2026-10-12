@@ -8,10 +8,13 @@ It never contains product code: it operates on *target repositories* (for exampl
 
 ```
 /run-card ARQ-n   (main session = orchestrator)
-  refinement → architect → prep → coder → qa → docs → push + PR → card to "En revisión"
+  refinement (BA: criteria.md) → USER APPROVES CRITERIA → architect (implementation.md)
+  → prep → coder → qa → docs → push + PR → card to "En revisión"
   after the user merges:  /run-card ARQ-n  → retrospective → record PR → card to "Hecho"
 ```
 
+- The user states the **need** in the card (section `Necesidad`). The BA (`refinement`) turns it into
+  acceptance criteria, and **the user approves them** before any design or code: they define the scope.
 - Architecture and business decisions are made **in conversation with the user**.
   Agents only execute what is already decided.
 - When an agent hits something undecided it **stops** and reports it. The orchestrator

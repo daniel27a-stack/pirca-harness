@@ -20,7 +20,8 @@ next one cheaper and better. You only **propose**; changing agents or convention
 the user makes in conversation.
 
 ## Input
-Everything in `tasks/<CARD-ID>/`, especially `progress.md` (log, attempts, blockers),
+Everything in `tasks/<CARD-ID>/`, especially `criteria.md` (and how many approval rounds it
+needed, from `resolutions.md`), `progress.md` (log, attempts, blockers),
 `resolutions.md`, `qa-report.md` and `metrics.json`. Also the merged PR: use
 `gh pr view <url> --json title,body,reviews,comments,commits,files` and compare the PR's
 final diff with what `coder` and `docs` produced, to see what the user changed during review.

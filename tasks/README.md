@@ -9,8 +9,8 @@ and the folder is committed as the record of how the card was done.
 | `task.json` | refinement (+ architect, prep) | Structured task data (schema below) |
 | `progress.md` | every stage | Stage status table + log. **Source of truth for resuming** |
 | `resolutions.md` | orchestrator | Answers from the user to blockers, in order |
-| `refinement.md` | refinement | Scope, ambiguities found, open questions |
-| `architecture.md` | architect | Approach, files to touch, **verification plan** |
+| `criteria.md` | refinement (BA) | Need, scope, acceptance criteria (AC-n), out of scope, assumptions. **Approved by the user** before architect runs |
+| `implementation.md` | architect | Approach, files, ordered steps per AC, **verification plan** (baseline + after) |
 | `prep-report.md` | prep | Worktree, branch, baseline results |
 | `baseline/` | prep | Raw baseline outputs (dependency trees, test results) |
 | `coder-summary.md` | coder | What changed, files, commits |
@@ -34,13 +34,11 @@ and the folder is committed as the record of how the card was done.
       "branch": "feature/ARQ-12"
     }
   ],
-  "scope": "One paragraph in English",
-  "acceptance_criteria": [
-    { "id": "AC-1", "text": "Verifiable criterion in English" }
-  ],
-  "out_of_scope": ["..."]
+  "scope": "One paragraph in English"
 }
 ```
+
+Acceptance criteria live in `criteria.md` only (single source of truth).
 
 ## `progress.md`
 
@@ -51,7 +49,8 @@ Status: in-progress | blocked | in-review | done
 
 | Stage | Status | Attempts | Updated |
 |---|---|---|---|
-| refinement | done | 1 | 2026-10-11T23:10Z |
+| refinement | done | 2 | 2026-10-11T23:10Z |
+| criteria-approval | done | 2 | 2026-10-11T23:25Z |
 | architect | blocked | 1 | ... |
 | prep | pending | 0 | |
 ...
@@ -60,7 +59,7 @@ Status: in-progress | blocked | in-review | done
 (only while blocked) stage, question(s) for the user, what is needed to continue
 
 ## Log
-- 2026-10-11T23:10Z refinement: AC-3 was vague in the card; translated literally, flagged in refinement.md
+- 2026-10-11T23:25Z criteria-approval: approved on round 2 (user narrowed AC-3)
 ```
 
 Stage status values: `pending`, `done`, `blocked`, `failed` (qa only).

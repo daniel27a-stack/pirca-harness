@@ -1,5 +1,5 @@
 ---
-description: Run (or resume) a pirca card end to end — refinement, architect, prep, coder, qa, docs, PR; after merge, retrospective.
+description: Run (or resume) a pirca card end to end — refinement (criteria for user approval), architect, prep, coder, qa, docs, PR; after merge, retrospective.
 argument-hint: <CARD-ID, e.g. ARQ-12>
 ---
 
@@ -24,14 +24,14 @@ Card: **$ARGUMENTS**. Task folder: `tasks/$ARGUMENTS/`. Conventions: `CLAUDE.md`
 2. `trello cards get --card <id>` and write `tasks/$ARGUMENTS/card.md` (name, labels if
    available, description, URL, Trello id).
 3. **Gates** — stop and tell the user (do not create anything else) when:
-   - the description has no `Criterios de aceptación` section, or it is empty;
+   - the description has no `Necesidad` section, or it is empty;
    - the card is in "Decisiones pendientes" or is clearly an open decision.
 4. Create `progress.md` from the template in `tasks/README.md` (all stages `pending`,
    Status `in-progress`) and `metrics.json` with an empty `runs` list.
 5. Move the card to "En curso": `trello cards move --card <id> --list 6acaad741c64496dc010018d`.
 
 ## 2. Stages (subagents, in strict order, foreground)
-`refinement` → `architect` → `prep` → `coder` → `qa` → `docs`
+`refinement` → **criteria approval (user)** → `architect` → `prep` → `coder` → `qa` → `docs`
 
 For each stage:
 1. Launch the subagent with a short prompt: the card ID, the task folder path, the attempt
@@ -40,17 +40,30 @@ For each stage:
 2. When it returns, record metrics: run `python3 scripts/agent_usage.py <agent-id>` and append
    the result to `metrics.json` `runs` with `stage`, `attempt` and `status`; update `totals`.
    If the transcript is not found, record what the Agent result reported and note it.
-3. Read the agent's last line (`STATUS: ...`) **and** `progress.md`. If they disagree, trust
+3. Replace every `<ts>` placeholder in `progress.md` with the current UTC time
+   (`date -u +%Y-%m-%dT%H:%MZ`).
+4. Read the agent's last line (`STATUS: ...`) **and** `progress.md`. If they disagree, trust
    neither: stop and tell the user.
-4. Branch on the status:
-   - `done` → next stage.
+5. Branch on the status:
+   - `done` after `refinement` → **always** run the criteria approval gate (below); only when the
+     user approves, continue with `architect`.
+   - `done` after any other stage → next stage.
    - `blocked` → set Status `blocked` in `progress.md`, then **stop and bring the blocker to the
-     user** in Spanish: which stage, what it found, the concrete questions and the options with
-     the agent's recommendation. Wait. When the user answers, append the answer to
-     `resolutions.md` and re-run the same stage.
+     user** in Spanish, using the question format below. Wait. When the user answers, append the
+     answer **verbatim** to `resolutions.md` and re-run the same stage.
    - `failed` (qa only) → if `coder` has run only once, re-run `coder` (attempt 2) pointing to
      `qa-report.md`, then `qa` again. If qa fails a second time, set Status `blocked` and stop
      with the failure summary for the user.
+
+### Criteria approval gate
+1. Present `criteria.md` to the user **in Spanish**: need, scope, each AC, out of scope and the
+   assumptions the BA made. Ask: approve as is, or correct.
+2. Corrections → append them verbatim to `resolutions.md` with a timestamp, re-run `refinement`
+   (next attempt) and present the new criteria. Repeat until approved.
+3. Approved → record it in `progress.md` (`criteria-approval` row = `done`, log line with the
+   approval round) and copy the approved criteria **in Spanish** to the Trello card description
+   under a heading `Criterios de aceptación (aprobados)`. Then continue with `architect`.
+4. Never skip this gate and never approve on the user's behalf.
 
 ## 3. Delivery (you)
 1. For each worktree in `task.json`: `git -C <worktree> push -u origin feature/$ARGUMENTS`
@@ -76,6 +89,14 @@ For each stage:
    (`6acaad76706ac9f975335df4`).
 6. Show the user the retrospective's proposals in Spanish and ask which ones to turn into
    `ARQ-n` cards. Do not apply any of them yourself.
+
+## Question format (every time the user must decide or answer)
+Make it impossible to misread:
+- A heading `❓ Pregunta` with the stage, what was found, and the decision needed.
+- Numbered options, each with its consequence, and the recommended one marked `(recomendada)`.
+- If a free-text answer is needed, a heading `✅ Responde` with a ready-to-copy code block the user
+  can paste or edit. Only one version of it; if you change it, say it replaces the previous one.
+- Ask one decision at a time when possible.
 
 ## Rules for you
 - Never skip a stage, never run stages in parallel, never do a stage's work yourself.

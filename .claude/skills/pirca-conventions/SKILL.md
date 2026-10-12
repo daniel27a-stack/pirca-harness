@@ -14,6 +14,22 @@ description: Architecture and working conventions of pirca. Preloaded into every
 - BC, MC and ACL always belong to **one product**. Only `lib-*` is shared between products.
   A `lib-*` is technical only; business logic in a lib is forbidden ("mortar").
 - Package / groupId: `cl.pirca.lib.<name>` for libs, `cl.pirca.<product>.<type>.<name>` for services.
+- Ecosystem: `web/app → TP (touch point, future) → BC → MC | ACL`. MC owns its data; a BC never
+  talks to a database directly.
+
+## Inside each artifact — layers (ARQ-25)
+- `controller → service → repository | client` (`→` = may call). `repository` only in the data
+  owner (MC); `client` for HTTP calls to other artifacts or systems (BC, ACL, TP).
+- `controller` never calls `repository` or `client` directly; no layer calls upwards.
+  Components may live in any layer without a rule of their own.
+- Naming: `..controller..` → `*Controller`, `..service..` → `*Service` (the package is always
+  `service`, never `business`), `..repository..` → `*Repository`, `..client..` → `*Client`.
+- This is a layered design, not hexagonal. Hexagonal (ports and adapters) is a future option for
+  BCs with rich business rules; do not introduce it without a decision.
+- `archTest` is one general suite for every artifact: each layer rule carries
+  `@Tag("layer-<name>")`; an artifact without a layer opts out explicitly with
+  `archTest.excludeLayers=<layers>` in `gradle.properties`. Layer rules never pass silently on an
+  empty layer (`allowEmptyShould` stays false). A "no package cycles" rule applies everywhere.
 
 ## Build (Gradle) — three layers
 1. `gradle/` — how to build and verify: `libs.versions.toml` (version catalog), `repositories.gradle`,
@@ -32,6 +48,12 @@ description: Architecture and working conventions of pirca. Preloaded into every
 - `main` is protected by a repository ruleset; nobody pushes to it directly.
 - Commit messages and PR titles start with the card ID: `ARQ-12: Add intTest suite`.
 - Everything inside a repository is written in English.
+
+## Working inside pirca-harness
+- **Never invent timestamps.** If you have Bash, use `date -u +%Y-%m-%dT%H:%MZ`. If you do not,
+  write the literal placeholder `<ts>`; the orchestrator replaces it with the real time.
+- Questions for the user go in the `## Blocker` section of `progress.md`, numbered, each with the
+  options and your recommendation, so the orchestrator can present them without rewording.
 
 ## Verification habits that worked
 - Before changing a build, capture a **baseline** (resolved dependencies of the relevant

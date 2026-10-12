@@ -12,7 +12,7 @@ and **how it was verified**.
 | 2026-10-11 | Rules enforced by mechanism where possible (hooks, tool scopes, `maxTurns`) | Instructions alone can be ignored; a hook that exits 2 cannot |
 | 2026-10-11 | All agents on Sonnet | Start cheap; switch a stage to a stronger model only if `metrics.json` and retrospectives show the need |
 | 2026-10-11 | State in `tasks/<CARD-ID>/progress.md`, measured cost in `metrics.json`, both committed | Resume after blockers across sessions; keep a record of how each card was done and what it cost |
-| 2026-10-11 | Acceptance criteria are mandatory on every card | They define the scope; without them the flow stops before refinement |
+| 2026-10-11 | The user writes the **need**; the BA agent writes `criteria.md`; **the user approves the criteria** before the architect runs. The architect writes `implementation.md`; `coder` receives both | Criteria define the scope, so they are a contractual decision: a wrong criterion would propagate to design, code and QA. Separating what (criteria) from how (implementation) keeps each agent's job clear |
 | 2026-10-11 | QA failure → one automatic retry of `coder`, then stop | Cheap fixes happen alone; repeated failures need a human |
 | 2026-10-11 | Retrospective runs after the merge and only proposes | The user's review changes are the best signal; changing agents is a user decision |
 | 2026-10-11 | No agent teams or dynamic workflows yet | The flow is sequential and needs user input mid-run, which workflows do not allow |
@@ -37,3 +37,30 @@ orchestrator, `tasks/README.md` (file formats), and three scripts:
 - `agent_usage.py`: on a real subagent transcript, reports model, 4 API requests (deduplicated),
   tokens by type and 82.4 s duration.
 - Pending: end-to-end run of ARQ-12 (acceptance criterion 10 of ARQ-11).
+
+## 2026-10-11 — ARQ-11: Need-based intake, criteria approval gate, fixes from the first run
+
+**What:**
+- Cards carry a `Necesidad` section; `refinement` acts as BA and writes `criteria.md`; the user
+  approves the criteria before `architect` runs; `architect` writes `implementation.md`;
+  `coder` and `qa` work from both.
+- `architect` gets `WebFetch` (Maven Central and the Gradle plugin portal only) and must pin exact
+  versions; placeholders such as `<1.4.x>` are not allowed.
+- Timestamps: agents never invent them (`date -u` or the `<ts>` placeholder, replaced by the
+  orchestrator after each stage).
+- Questions to the user follow a fixed format (`❓ Pregunta`, numbered options with a recommended
+  one, `✅ Responde` with one copy-ready block).
+- `pirca-conventions` gains the ecosystem view and the layer convention (ARQ-25).
+
+**Why (first, aborted run of ARQ-12):**
+- `architect` had no way to look up versions and left placeholders, pushing a design decision to `coder`.
+- Agents without a shell wrote made-up timestamps (`2026-10-11T00:00Z`) in `progress.md`.
+- `architect` assumed hexagonal package names that pirca had never decided; the orchestrator
+  correctly stopped and asked, which produced ARQ-25.
+- The user pasted the wrong block of an answer because several versions had been offered.
+- The harness was modified while the run was in progress, so the session mixed the old and new
+  flow. Rule since then: never change the harness while a card is running.
+
+**Verification:** run leftovers removed (`tasks/ARQ-12/`, empty agent memory); ARQ-12 reset to
+Backlog with a `Necesidad` section; `settings.json` valid. The flow itself is verified by the next
+ARQ-12 run.

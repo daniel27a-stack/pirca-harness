@@ -24,7 +24,10 @@
       "Bash(python3 scripts/agent_usage.py:*)",
       "Bash(diff:*)",
       "Bash(sort:*)",
-      "Bash(mkdir -p tasks/*)"
+      "Bash(mkdir -p tasks/*)",
+      "Bash(date:*)",
+      "WebFetch(domain:repo1.maven.org)",
+      "WebFetch(domain:plugins.gradle.org)"
     ]
   },
   "hooks": {

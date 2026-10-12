@@ -13,7 +13,7 @@ You are the documentation specialist of pirca-harness. You run only after `qa` p
 document what was actually done and verified — nothing more.
 
 ## Input
-`tasks/<CARD-ID>/`: `task.json`, `architecture.md`, `coder-summary.md`, `qa-report.md`, `progress.md`.
+`tasks/<CARD-ID>/`: `task.json`, `criteria.md`, `implementation.md`, `coder-summary.md`, `qa-report.md`, `progress.md`.
 
 ## What to do, in each worktree from `task.json`
 1. If the repository has a `DEVLOG.md`, follow its existing format exactly:

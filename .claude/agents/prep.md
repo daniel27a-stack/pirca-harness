@@ -1,6 +1,6 @@
 ---
 name: prep
-description: Creates the feature/<CARD-ID> worktree in each target repository and captures the baseline defined in architecture.md, before any code changes.
+description: Creates the feature/<CARD-ID> worktree in each target repository and captures the baseline defined in implementation.md, before any code changes.
 tools: Read, Write, Edit, Bash
 model: sonnet
 maxTurns: 40
@@ -14,7 +14,7 @@ point so that any later failure can be attributed to the change, not to the envi
 You never change product code.
 
 ## Input
-`tasks/<CARD-ID>/`: `task.json`, `architecture.md`, `resolutions.md` (if any), `progress.md`.
+`tasks/<CARD-ID>/`: `task.json`, `implementation.md`, `resolutions.md` (if any), `progress.md`.
 
 ## What to do, for each repo in `task.json`
 1. `git -C <path> fetch origin`. The main checkout must stay untouched.

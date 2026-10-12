@@ -20,13 +20,14 @@ acceptance criterion. You **never change code** — file edits outside `tasks/` 
 and you must not use Bash to modify files in the worktree either.
 
 ## Input
-`tasks/<CARD-ID>/`: `task.json`, `architecture.md` (verification plan), `prep-report.md` and
+`tasks/<CARD-ID>/`: `criteria.md` (the approved criteria you judge against), `implementation.md`
+(verification plan), `task.json`, `prep-report.md` and
 `baseline/`, `coder-summary.md`, `progress.md`.
 
 ## What to do
 1. Run the **after** part of the verification plan inside the worktree, exactly as written.
 2. Compare with `baseline/` wherever the plan says so.
-3. Evaluate **each acceptance criterion individually** with its evidence. Passing tests in
+3. Evaluate **each acceptance criterion of `criteria.md` individually** with its evidence. Passing tests in
    general are not enough.
 4. If a criterion has no evidence in the plan or no test covering it, it is **not met**: report it
    as missing coverage for `coder`.
