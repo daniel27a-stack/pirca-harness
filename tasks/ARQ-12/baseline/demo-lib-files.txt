@@ -1,0 +1,17 @@
+./build.gradle
+./.gitignore
+./gradle/constraints.gradle
+./gradle/dependencies.gradle
+./gradle/java.gradle
+./gradle/libs.versions.toml
+./gradle/repositories.gradle
+./gradle/sources.gradle
+./gradle/tests.gradle
+./gradlew
+./gradlew.bat
+./gradle/wrapper/gradle-wrapper.jar
+./gradle/wrapper/gradle-wrapper.properties
+./README.md
+./settings.gradle
+./src/main/java/com/acme/DemoLib.java
+./src/test/java/com/acme/DemoLibTest.java

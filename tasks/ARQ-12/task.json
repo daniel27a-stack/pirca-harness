@@ -1,0 +1,14 @@
+{
+  "task_id": "ARQ-12",
+  "title": "Step 3: intTest and archTest suites",
+  "trello_card_id": "6acaad8d1f9ff103ef74f881",
+  "repos": [
+    {
+      "name": "java-skeleton",
+      "path": "/home/daniel-jofre/Documentos/Desarrollo/java-skeleton",
+      "worktree": "/home/daniel-jofre/Documentos/Desarrollo/java-skeleton-ARQ-12",
+      "branch": "feature/ARQ-12"
+    }
+  ],
+  "scope": "Add separate test, intTest and archTest suites to the spring-gradle, java-app and java-library templates of java-skeleton, all wired into check and runnable alone. spring-gradle intTest supports WireMock; a general archTest enforces the ARQ-25 layer convention with explicit layer opt-out via archTest.excludeLayers and a no-package-cycles rule. spring-gradle gains a sample HelloService. Main dependencies of every template stay unchanged."
+}
