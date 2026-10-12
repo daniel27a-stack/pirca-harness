@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git fetch:*)",
+      "Bash(git switch:*)",
+      "Bash(git branch:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git worktree:*)",
+      "Bash(git push -u origin feature/*)",
+      "Bash(git -C:*)",
+      "Bash(./gradlew:*)",
+      "Bash(docker build:*)",
+      "Bash(docker run:*)",
+      "Bash(gh pr create:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr list:*)",
+      "Bash(trello:*)",
+      "Bash(python3 scripts/agent_usage.py:*)",
+      "Bash(diff:*)",
+      "Bash(sort:*)",
+      "Bash(mkdir -p tasks/*)",
+      "Bash(date:*)",
+      "WebFetch(domain:repo1.maven.org)",
+      "WebFetch(domain:plugins.gradle.org)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR\"/scripts/block_push_main.py" }
+        ]
+      }
+    ]
+  }
+}
