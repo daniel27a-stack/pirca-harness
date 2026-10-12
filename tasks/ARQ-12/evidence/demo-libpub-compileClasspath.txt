@@ -1,0 +1,9 @@
+
+------------------------------------------------------------
+Root project 'demo-libpub'
+------------------------------------------------------------
+
+compileClasspath - Compile classpath for source set 'main'.
+No dependencies
+
+A web-based, searchable dependency report is available by adding the --scan option.

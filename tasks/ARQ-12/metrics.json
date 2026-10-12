@@ -1,0 +1,178 @@
+{
+  "task_id": "ARQ-12",
+  "runs": [
+    {
+      "agent_id": "a58a79a90d9927afc",
+      "models": [
+        "claude-sonnet-5-5"
+      ],
+      "api_requests": 6,
+      "tool_uses": 14,
+      "tokens": {
+        "input": 12,
+        "output": 3792,
+        "cache_read": 103107,
+        "cache_creation": 29423,
+        "total": 136334
+      },
+      "started_at": "2026-10-12T00:41:41.795000+00:00",
+      "ended_at": "2026-10-12T00:42:13.856000+00:00",
+      "duration_s": 32.1,
+      "stage": "refinement",
+      "attempt": 1,
+      "status": "done"
+    },
+    {
+      "agent_id": "af20a2d455c5cc65d",
+      "models": [
+        "claude-sonnet-5-5"
+      ],
+      "api_requests": 5,
+      "tool_uses": 15,
+      "tokens": {
+        "input": 10,
+        "output": 2406,
+        "cache_read": 74022,
+        "cache_creation": 11831,
+        "total": 88269
+      },
+      "started_at": "2026-10-12T00:46:04.965000+00:00",
+      "ended_at": "2026-10-12T00:46:25.910000+00:00",
+      "duration_s": 20.9,
+      "stage": "refinement",
+      "attempt": 2,
+      "status": "done"
+    },
+    {
+      "agent_id": "a4b563cddb5879b0c",
+      "models": [
+        "claude-sonnet-5-5"
+      ],
+      "api_requests": 14,
+      "tool_uses": 55,
+      "tokens": {
+        "input": 28,
+        "output": 17087,
+        "cache_read": 524656,
+        "cache_creation": 75943,
+        "total": 617714
+      },
+      "started_at": "2026-10-12T00:48:40.574000+00:00",
+      "ended_at": "2026-10-12T00:52:18.201000+00:00",
+      "duration_s": 217.6,
+      "stage": "architect",
+      "attempt": 1,
+      "status": "done"
+    },
+    {
+      "agent_id": "a89be2b382fd93d38",
+      "models": [
+        "claude-sonnet-5-5"
+      ],
+      "api_requests": 10,
+      "tool_uses": 11,
+      "tokens": {
+        "input": 20,
+        "output": 850,
+        "cache_read": 237280,
+        "cache_creation": 32853,
+        "total": 271003
+      },
+      "started_at": "2026-10-12T00:52:31.264000+00:00",
+      "ended_at": "2026-10-12T00:54:29.845000+00:00",
+      "duration_s": 118.6,
+      "stage": "prep",
+      "attempt": 1,
+      "status": "done"
+    },
+    {
+      "agent_id": "abe76c5c42a3fb477",
+      "models": [
+        "claude-sonnet-5-5"
+      ],
+      "api_requests": 17,
+      "tool_uses": 19,
+      "tokens": {
+        "input": 34,
+        "output": 1539,
+        "cache_read": 633752,
+        "cache_creation": 57243,
+        "total": 692568
+      },
+      "started_at": "2026-10-12T01:00:16.261000+00:00",
+      "ended_at": "2026-10-12T01:03:53.464000+00:00",
+      "duration_s": 217.2,
+      "stage": "coder",
+      "attempt": 1,
+      "status": "done"
+    },
+    {
+      "agent_id": "a334a12e547abfb9f",
+      "models": [
+        "claude-sonnet-5-5"
+      ],
+      "api_requests": 16,
+      "tool_uses": 17,
+      "tokens": {
+        "input": 32,
+        "output": 2491,
+        "cache_read": 509792,
+        "cache_creation": 43248,
+        "total": 555563
+      },
+      "started_at": "2026-10-12T01:04:01.381000+00:00",
+      "ended_at": "2026-10-12T01:07:49.517000+00:00",
+      "duration_s": 228.1,
+      "stage": "qa",
+      "attempt": 1,
+      "status": "done"
+    },
+    {
+      "agent_id": "add0481fd7f17d44b",
+      "models": [
+        "claude-sonnet-5-5"
+      ],
+      "api_requests": 7,
+      "tool_uses": 7,
+      "tokens": {
+        "input": 14,
+        "output": 714,
+        "cache_read": 111513,
+        "cache_creation": 19962,
+        "total": 132203
+      },
+      "started_at": "2026-10-12T01:07:57.983000+00:00",
+      "ended_at": "2026-10-12T01:08:28.418000+00:00",
+      "duration_s": 30.4,
+      "stage": "docs",
+      "attempt": 1,
+      "status": "done"
+    },
+    {
+      "agent_id": "adeb440929dec1460",
+      "models": [
+        "claude-sonnet-5-5"
+      ],
+      "api_requests": 3,
+      "tool_uses": 3,
+      "tokens": {
+        "input": 6,
+        "output": 43,
+        "cache_read": 32517,
+        "cache_creation": 23283,
+        "total": 55849
+      },
+      "started_at": "2026-10-12T01:18:40.662000+00:00",
+      "ended_at": "2026-10-12T01:19:11.196000+00:00",
+      "duration_s": 30.5,
+      "stage": "retrospective",
+      "attempt": 1,
+      "status": "done"
+    }
+  ],
+  "totals": {
+    "tokens": 2549503,
+    "duration_s": 895.4,
+    "runs": 8
+  }
+}

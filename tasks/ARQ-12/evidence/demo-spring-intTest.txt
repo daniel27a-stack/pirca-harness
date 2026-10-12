@@ -1,0 +1,13 @@
+> Task :clean
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :jar
+> Task :compileIntTestJava
+> Task :processIntTestResources NO-SOURCE
+> Task :intTestClasses
+> Task :intTest
+
+BUILD SUCCESSFUL in 2s
+6 actionable tasks: 6 executed
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.5.1/userguide/configuration_cache_enabling.html

@@ -1,0 +1,36 @@
+> Task :clean
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :jar
+> Task :compileArchTestJava
+> Task :processArchTestResources
+> Task :archTestClasses
+
+> Task :archTest FAILED
+
+ArchitectureTest > repositoryDoesNotCallUpwardsOrSiblings FAILED
+    java.lang.AssertionError at ArchRule.java:201
+
+ArchitectureTest > repositoryNamesEndWithRepository FAILED
+    java.lang.AssertionError at ArchRule.java:201
+
+ArchitectureTest > clientDoesNotCallUpwardsOrSiblings FAILED
+    java.lang.AssertionError at ArchRule.java:201
+
+ArchitectureTest > clientNamesEndWithClient FAILED
+    java.lang.AssertionError at ArchRule.java:201
+
+8 tests completed, 4 failed
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':archTest'.
+> There were failing tests. See the report at: file:///tmp/claude-1000/-home-daniel-jofre-Documentos-Desarrollo-pirca-harness/66e05665-e7da-40e1-9ec7-0e2b04ce93ae/scratchpad/qa/demo-spring/build/reports/tests/archTest/index.html
+
+* Try:
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 2s
+7 actionable tasks: 7 executed

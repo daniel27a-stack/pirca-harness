@@ -1,0 +1,17 @@
+
+FAILURE: Build failed with an exception.
+
+* Where:
+Script '/tmp/claude-1000/-home-daniel-jofre-Documentos-Desarrollo-pirca-harness/66e05665-e7da-40e1-9ec7-0e2b04ce93ae/scratchpad/qa/demo-spring/gradle/tests.gradle' line: 18
+
+* What went wrong:
+A problem occurred evaluating script.
+> archTest.excludeLayers: unknown layer 'foo'. Known layers: controller, service, repository, client
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 652ms
