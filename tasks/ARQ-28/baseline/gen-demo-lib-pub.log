@@ -1,0 +1,6 @@
+
+✔ Project "demo-lib-pub" (java-library) created in /work/demo-lib-pub
+
+  cd demo-lib-pub
+  ./gradlew build
+
