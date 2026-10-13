@@ -1,0 +1,14 @@
+{
+  "task_id": "ARQ-28",
+  "title": "java-skeleton: CLAUDE.md con el contexto del generador",
+  "trello_card_id": "6acc375081bc135f5cc950ae",
+  "repos": [
+    {
+      "name": "java-skeleton",
+      "path": "/home/daniel-jofre/Documentos/Desarrollo/java-skeleton",
+      "worktree": "/home/daniel-jofre/Documentos/Desarrollo/java-skeleton-ARQ-28",
+      "branch": "feature/ARQ-28"
+    }
+  ],
+  "scope": "Add a root CLAUDE.md to java-skeleton describing it as a Node generator with Handlebars templates (.hbs, {{packagePath}}, {{#if}} optional files) and how changes are verified (build Docker image, generate each template, compile with ./gradlew build). Documentation only; no generator, template or build changes."
+}

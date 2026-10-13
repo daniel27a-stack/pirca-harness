@@ -1,0 +1,6 @@
+
+✔ Project "demo-spring" (spring-gradle) created in /work/demo-spring
+
+  cd demo-spring
+  ./gradlew build
+

@@ -1,0 +1,6 @@
+
+✔ Project "demo-app" (java-app) created in /work/demo-app
+
+  cd demo-app
+  ./gradlew build
+

@@ -1,0 +1,49 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 300B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:22-alpine
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 96B done
+#3 DONE 0.0s
+
+#4 [1/7] FROM docker.io/library/node:22-alpine@sha256:c610fcdfb1d5b4740dd70c284ed3cb16bb857e0f7166196e36a5501df7a3aa32
+#4 resolve docker.io/library/node:22-alpine@sha256:c610fcdfb1d5b4740dd70c284ed3cb16bb857e0f7166196e36a5501df7a3aa32 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 259.35kB 0.0s done
+#5 DONE 0.0s
+
+#6 [5/7] COPY bin ./bin
+#6 CACHED
+
+#7 [6/7] COPY templates ./templates
+#7 CACHED
+
+#8 [2/7] WORKDIR /app
+#8 CACHED
+
+#9 [3/7] COPY package.json package-lock.json ./
+#9 CACHED
+
+#10 [4/7] RUN npm ci --omit=dev
+#10 CACHED
+
+#11 [7/7] WORKDIR /work
+#11 CACHED
+
+#12 exporting to image
+#12 exporting layers done
+#12 exporting manifest sha256:ea00a0d2b3be3d4746424914c08433006665fe8a0cd39300b65b9a2bc60f4f8e done
+#12 exporting config sha256:5f88f6b3efe89eee120255ad786511c2c3f0347b5bb84ade53417162e1523700 done
+#12 exporting attestation manifest sha256:f0403de01e180bdc40466f3e278e303848efa1b395993fe2095723eeed9628ac done
+#12 exporting manifest list sha256:2705596b3824a700ad5d28382b048908f6c1dab060f4c9d4242bcc4d908406e8
+#12 exporting manifest list sha256:2705596b3824a700ad5d28382b048908f6c1dab060f4c9d4242bcc4d908406e8 done
+#12 naming to docker.io/library/java-skeleton:base done
+#12 unpacking to docker.io/library/java-skeleton:base 0.0s done
+#12 DONE 0.1s
