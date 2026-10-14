@@ -64,3 +64,27 @@ orchestrator, `tasks/README.md` (file formats), and three scripts:
 **Verification:** run leftovers removed (`tasks/ARQ-12/`, empty agent memory); ARQ-12 reset to
 Backlog with a `Necesidad` section; `settings.json` valid. The flow itself is verified by the next
 ARQ-12 run.
+
+## 2026-10-13 — ARQ-35: pirca-conventions updated with the decisions of Oct 12-13
+
+**What:** the `pirca-conventions` skill (preloaded into every agent) now reflects the decisions
+taken in conversation with the user:
+- Artifact types `edge` / `flow` / `data` / `acl` / `lib` (ARQ-34), replacing TP / BC / MC / ACL,
+  with a mapping note for older cards.
+- Only `edge` is exposed outside; `flow`, `data` and `acl` are internal (ARQ-33).
+- `edge` authenticates, `flow` authorizes; an `edge` never calls a `data` directly, even for
+  simple reads (decided with the user; pass-through flows are an accepted cost).
+- Java package = groupId: product groupId for services, one groupId per library.
+- Where things live (ARQ-28): target repos carry facts in `CONTRIBUTING.md`; agent rules live in
+  this harness; `DEVLOG.md` gets an entry in every change, `README.md` only when usage changes.
+- Layer rules reference the new types; the archTest tag wording matches the implementation
+  (`@ArchTag` on `@ArchTest` fields).
+
+**Why:** the skill contradicted the cards (old type names and a wrong package rule), which would
+have made ARQ-32 run with two conflicting sources of truth.
+
+**How:** done in conversation, not by the agentic flow, because it changes the rules every agent
+follows; no card was running at the time.
+
+**Verification:** no old type names left outside `tasks/` (historical records); the real check is
+the next card (ARQ-32) running without contradictions between the card and the skill.
