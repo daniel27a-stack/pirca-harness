@@ -1,0 +1,14 @@
+{
+  "task_id": "ARQ-32",
+  "title": "java-skeleton: pirca generator (only type, product and name)",
+  "trello_card_id": "6aced4f4722b39d47b37fb46",
+  "repos": [
+    {
+      "name": "java-skeleton",
+      "path": "/home/daniel-jofre/Documentos/Desarrollo/java-skeleton",
+      "worktree": "/home/daniel-jofre/Documentos/Desarrollo/java-skeleton-ARQ-32",
+      "branch": "feature/ARQ-32"
+    }
+  ],
+  "scope": "Turn java-skeleton into the pirca generator that asks only type (edge, flow, data, acl, lib), product and name, in two modes (interactive or --yes with flags). Remove all other flags, questions, the success message, port configuration and the java-app template; derive folder, artifact, group, package and serviceName; services get Application.java, libs get Example classes, everything starts at version 1.0.0 and libs always include publishing. Update README, CONTRIBUTING, manifest, package.json description and add a DEVLOG entry."
+}

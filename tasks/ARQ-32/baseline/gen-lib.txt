@@ -1,0 +1,6 @@
+
+✔ Project "lib-errors" (java-library) created in /work/lib-errors
+
+  cd lib-errors
+  ./gradlew build
+

@@ -1,0 +1,6 @@
+templates/spring-gradle/gradle.properties:# archTest.excludeLayers lists the layers this artifact does not have (comma-separated);
+templates/spring-gradle/gradle.properties:archTest.excludeLayers=repository,client
+templates/java-library/gradle.properties:# archTest.excludeLayers lists the layers this artifact does not have (comma-separated);
+templates/java-library/gradle.properties:archTest.excludeLayers=controller,service,repository,client
+templates/java-app/gradle.properties:# archTest.excludeLayers lists the layers this artifact does not have (comma-separated);
+templates/java-app/gradle.properties:archTest.excludeLayers=controller,service,repository,client

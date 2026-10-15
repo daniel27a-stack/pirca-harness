@@ -1,0 +1,6 @@
+
+✔ Project "data-expense" (spring-gradle) created in /work/data-expense
+
+  cd data-expense
+  ./gradlew build
+

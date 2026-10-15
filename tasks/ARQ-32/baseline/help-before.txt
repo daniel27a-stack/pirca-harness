@@ -1,0 +1,19 @@
+Usage: java-skeleton [options]
+
+Generates a Java + Gradle project skeleton (Spring Boot REST service, app/CLI
+or library)
+
+Options:
+  -V, --version                output the version number
+  -t, --template <id>          template to use (spring-gradle, java-app,
+                               java-library)
+  -n, --name <name>            project/service name
+  -g, --group <groupId>        group id, e.g. com.example
+  -a, --artifact <artifactId>  artifact id (output folder)
+  -j, --java <version>         Java version (17 | 21 | 25)
+  -p, --port <port>            service port (spring-gradle only)
+  --with-publish               include maven-publish setup (java-library only)
+  -d, --dir <path>             base directory where the project is created
+                               (default: "/work")
+  -y, --yes                    do not prompt; use defaults for anything missing
+  -h, --help                   display help for command

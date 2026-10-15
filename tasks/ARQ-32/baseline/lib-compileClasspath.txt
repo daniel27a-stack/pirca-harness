@@ -1,0 +1,15 @@
+
+> Task :dependencies
+
+------------------------------------------------------------
+Root project 'lib-errors'
+------------------------------------------------------------
+
+compileClasspath - Compile classpath for source set 'main'.
+No dependencies
+
+A web-based, searchable dependency report is available by adding the --scan option.
+
+BUILD SUCCESSFUL in 391ms
+1 actionable task: 1 executed
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.5.1/userguide/configuration_cache_enabling.html
