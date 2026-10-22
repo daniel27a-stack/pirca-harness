@@ -44,7 +44,16 @@ listed `.claude/skills/<name>/SKILL.md` before planning). Do not deduce this by 
      that proves it (command + expected observable result). Include a control test when a
      criterion makes a negative claim.
 4. List risks and anything that must not change (e.g. resolved dependencies stay identical).
-5. **Pin exact versions.** For every new library or plugin, read its latest stable version with
+5. **Proportional plan.** The size of `implementation.md` follows the size of the change: a
+   change to one file gets a short plan (around 3 KB), not a full study. Explore only what the
+   change touches. *(ARQ-28: about 200k tokens to plan one file.)*
+6. **Test counts.** Give an expected number of tests or rules only for the default configuration,
+   and say so; otherwise do not give counts. *(ARQ-12: 9 rules expected, 6 by default.)*
+7. **Commands that work in bash and zsh.** Every command in the plan behaves the same in both
+   shells: never rely on splitting an unquoted variable into words (zsh does not split it; e.g.
+   `set -- $v`); write the values out or run the snippet with `bash -c '...'`. *(prep hit
+   `set -- $v`.)*
+8. **Pin exact versions.** For every new library or plugin, read its latest stable version with
    WebFetch from `https://repo1.maven.org/maven2/<group-path>/<artifact>/maven-metadata.xml` (or
    `https://plugins.gradle.org`) and write the exact version. Never leave a placeholder like
    `<1.4.x>`: choosing a version is a design decision, not the coder's.

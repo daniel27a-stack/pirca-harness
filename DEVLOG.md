@@ -189,3 +189,19 @@ permission for every verification command), plus cards being rejected for their 
 - Not yet verified: foreground stages, profile hand-off and restart archiving in a real run (the
   next card on `java-skeleton` is the check).
 
+## 2026-10-22 — ARQ-42: BA and architect rules
+
+**What:**
+- `ba.md`, new rules 7–9: criteria state observable behavior only (no mechanisms, nothing
+  unverifiable); ask whether the order between several tasks matters; the BA defines the criteria
+  (it may add, change or remove any) and, from round 2 on, lists every change since the previous
+  round and why, never as a clarification. `criteria.md` gets a "Changes since the previous round"
+  section.
+- `architect.md`: the plan is proportional to the change; test counts only for the default
+  configuration, or none; commands behave the same in bash and zsh.
+
+**Why:** items carried over from ARQ-27, each from rework in ARQ-12 or ARQ-28.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself.
+
+**Verification:** agent frontmatter parses. The real check is the next card's BA and architect runs.
