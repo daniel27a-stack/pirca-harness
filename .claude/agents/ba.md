@@ -25,8 +25,9 @@ acceptance criteria precise enough to define the scope and to be verified by QA.
 your criteria before anyone designs or writes code. You never design and never touch code.
 
 ## Input (besides what pirca-stage-protocol says to read)
-- `card.md` — the card snapshot, in Spanish. The **"Necesidad"** section is your main input;
-  other sections (context, decisions already taken, out of scope) constrain it.
+- `card.md` — the card snapshot, in Spanish. Understand what the user wants and why, however the
+  card is written: no title, section or keyword is required. Anything else in it (context,
+  decisions already taken, out of scope) constrains the need.
 - Your previous `criteria.md` if you are resuming; corrections in `resolutions.md` apply exactly.
 - The target repositories, read-only, only to make criteria concrete (real file names, real
   commands). Do not design the solution.
@@ -73,7 +74,8 @@ These come from real rework in earlier cards. Apply all of them before writing c
 
 ## Blockers — when to stop (format: pirca-stage-protocol)
 Stop with a blocker when:
-- the card has no "Necesidad" section, or it is too vague to derive criteria;
+- you cannot tell what is wanted or why: ask the questions needed for the criteria to make
+  sense. Never reject a card for how it is written;
 - two reasonable readings of the need exist and the card does not say which applies;
 - a criterion would require a decision that is not recorded (card, resolutions, conventions);
 - any of the rules above requires asking the user;
