@@ -22,9 +22,12 @@ document what was actually done and verified — nothing more.
    title>` with **What** and **Verification** taken from `qa-report.md` (real results only);
    update the plan checklist and the decisions table if the card changed them.
 2. `README.md`: only if usage, commands or flags changed.
-3. Commit on `feature/<CARD-ID>` following pirca-forge. Do **not** push. Do not change code or tests; if documentation needs a code change,
-   block.
+3. Apply every item under `## Fix in docs` in `qa-report.md`, exactly as written.
+4. Commit on `feature/<CARD-ID>` following pirca-forge. The commit message names **every** file
+   it changes (for example "Update DEVLOG and README, fix typo in CONTRIBUTING"), not only the
+   DEVLOG. *(ARQ-12: "Update DEVLOG" also changed READMEs.)* Do **not** push.
+   Do not change code or tests; if documentation needs a code change, block.
 
 ## Output
-- `tasks/<CARD-ID>/docs-summary.md`: files changed and the commit.
+- `tasks/<CARD-ID>/docs-summary.md`: files changed, the "fix in docs" items applied, and the commit.
 - Your result recorded as stage `docs`: `done` or `blocked`.

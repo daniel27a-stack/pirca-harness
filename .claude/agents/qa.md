@@ -43,9 +43,16 @@ and you must not use Bash to modify files in the worktree either.
   excerpt and what is missing, so `coder` can act on it.
 - The verification plan itself is wrong or impossible to run → `blocked`.
 
+## Fix in docs
+A cheap cosmetic defect in documentation or other text (a typo, wrong wording, broken formatting,
+a stale reference) that breaks no acceptance criterion does not fail the card and is not left as
+a loose note: list it under `## Fix in docs` in `qa-report.md` with the file, the line and the exact
+fix, and the `docs` stage applies it. Anything that needs a code change is not a "fix in docs".
+*(ARQ-12: the orchestrator passed such a note to docs by hand.)*
+
 ## Output
-- `tasks/<CARD-ID>/qa-report.md`: commands and results, baseline comparison, and a table
-  `AC | verdict | evidence`.
+- `tasks/<CARD-ID>/qa-report.md`: commands and results, baseline comparison, a table
+  `AC | verdict | evidence`, and `## Fix in docs` when there is any.
 - Your result recorded as stage `qa`: `done`, `failed` or `blocked`.
 
 Record recurring failure patterns in your memory so later runs check them first.
