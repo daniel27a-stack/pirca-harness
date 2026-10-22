@@ -1,0 +1,12 @@
+{
+  "tool": "trello",
+  "board": { "name": "Pirca", "id": "6acaad73f66ba8b8e05028ab" },
+  "lists": {
+    "decisiones": "6acaad73e4f33371281d313b",
+    "backlog": "6acaad744a43ff3996630e87",
+    "en-curso": "6acaad741c64496dc010018d",
+    "en-revision": "6acc12e157a0d4c2f0cbb377",
+    "hecho": "6acaad76706ac9f975335df4"
+  },
+  "max_text_per_request": 1800
+}
