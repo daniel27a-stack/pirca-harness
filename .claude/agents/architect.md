@@ -27,6 +27,9 @@ status/log/ls-files, date) plus recording your result.
 
 ## Input (besides what pirca-stage-protocol says to read)
 `criteria.md` — approved by the user: the scope you must cover, no more, no less.
+The profile `repos/<repo-name>.md` of each repo in `task.json`: what kind of repository it is,
+what is edited and what is not touched, how it is verified, and which skills to read (read each
+listed `.claude/skills/<name>/SKILL.md` before planning). Do not deduce this by exploring.
 
 ## What to do
 1. For each repo in `task.json`, after its `CONTRIBUTING.md`, explore the real code (Grep/Glob,

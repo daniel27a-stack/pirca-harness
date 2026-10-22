@@ -21,6 +21,7 @@ and the folder is committed as the record of how the card was done.
 | `metrics.json` | orchestrator | Tokens, model and time per stage run |
 | `retrospective.md` | retrospective | What went wrong, cost analysis, proposed improvements |
 | `pr-body.md` | orchestrator | Body of the PR opened with pirca-forge |
+| `aborted/<UTC time>/` | orchestrator | Everything from a run the user restarted from scratch, archived as it was. Its branch is renamed `aborted/<CARD-ID>-<UTC time>` |
 
 ## `task.json`
 
@@ -40,6 +41,8 @@ and the folder is committed as the record of how the card was done.
   "scope": "One paragraph in English"
 }
 ```
+
+Each repo's `name` is also the name of its profile, `repos/<name>.md`.
 
 Acceptance criteria live in `criteria.md` only (single source of truth).
 

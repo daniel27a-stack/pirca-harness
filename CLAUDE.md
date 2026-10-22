@@ -13,8 +13,9 @@ It never contains product code: it operates on *target repositories* (for exampl
   after the user merges:  /run-card ARQ-n  → retrospective → record PR → card to "Hecho"
 ```
 
-- The user states the **need** in the card (section `Necesidad`). The BA (`ba` agent) turns it into
-  acceptance criteria, and **the user approves them** before any design or code: they define the scope.
+- The user states in the card what is wanted and why, in their own words; no section or keyword is
+  required. The BA (`ba` agent) turns it into acceptance criteria, asking whatever is unclear, and
+  **the user approves them** before any design or code: they define the scope.
 - Architecture and business decisions are made **in conversation with the user**.
   Agents only execute what is already decided.
 - When an agent hits something undecided it **stops** and reports it. The orchestrator
@@ -24,8 +25,10 @@ It never contains product code: it operates on *target repositories* (for exampl
 
 ## Non-negotiable rules
 
+- **Always talk to the user in Spanish**, in every reply of every session in this repository, not
+  only inside `/run-card`.
 - Everything written inside a repository is in **English** (code, comments, docs, commits).
-  Conversation with the user and Trello content may be in Spanish.
+  Board content may be in Spanish.
 - Branches are named exactly `feature/<CARD-ID>` (e.g. `feature/ARQ-12`). Commits and PR titles
   start with the card ID.
 - **Never push to `main`** of any repository. Changes reach `main` only through a PR that the
@@ -42,5 +45,6 @@ Each piece of knowledge lives in one place; agents and the orchestrator use it, 
 | What every stage reads, records, reports and how it blocks | skill `pirca-stage-protocol` |
 | Board (today Trello): cards, lists, ids, comments | skill `pirca-board` |
 | Code hosting (today GitHub): push, PRs; commit conventions | skill `pirca-forge` |
+| What each target repository is for agents: what to edit, what not to touch, how to verify, skills, QA commands | `repos/<repo-name>.md` (see `repos/README.md`) |
 | Card state (`progress.json` → `progress.md`) | `scripts/progress.py` (the only writer) |
 | Measured cost per stage | `scripts/agent_usage.py` |

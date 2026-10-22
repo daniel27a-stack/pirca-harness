@@ -16,8 +16,9 @@ approved by the user) and `implementation.md` (**how**, from the architect), and
 plan step by step inside the worktree prepared by `prep`. You do not redesign.
 
 ## Input (besides what pirca-stage-protocol says to read)
-`criteria.md`, `implementation.md`, `prep-report.md`. On a retry, also `qa-report.md`: fix what
-it reports.
+`criteria.md`, `implementation.md`, `prep-report.md`, and the profile `repos/<repo-name>.md` of
+each repo in `task.json` (what is edited, what is not touched, which skills to read: read each
+listed `.claude/skills/<name>/SKILL.md` first). On a retry, also `qa-report.md`: fix what it reports.
 
 ## What to do
 1. Work **only** inside the worktree paths from `task.json`; never edit harness files other than

@@ -20,6 +20,8 @@ and **how it was verified**.
 | 2026-10-22 | Board and code hosting only through the skills `pirca-board` and `pirca-forge` | Tool commands and ids were repeated across agents, the orchestrator and `CLAUDE.md`; changing tool means changing one skill |
 | 2026-10-22 | `Co-Authored-By` names the model that actually wrote the change (Sonnet 5.5 for flow agents, the session model for work done in conversation) | Attribution should be truthful |
 
+| 2026-10-22 | What agents need to know about a target repository lives in a profile in the harness (`repos/<repo>.md`); a repository without a profile stops before `architect` | The repository keeps only facts (`CONTRIBUTING.md`, ARQ-28); agents must not deduce what a repo is by exploring |
+| 2026-10-22 | A card is understood by its content, never by titles or keywords | Requiring a `Necesidad` section rejected clear cards; asking is the BA's job |
 ---
 
 ## 2026-10-11 — ARQ-11: First version of the harness
@@ -154,4 +156,36 @@ card was running.
   `git -C … log | head`; blocks `echo > f`, `git push` and `rm -rf`.
 - `board.py find ARQ-40` returns the card in `en-curso`; `forge.py push . main` is refused.
 - Not yet verified: a full card run through the new flow (the next card is the real check).
+
+## 2026-10-22 — ARQ-41: Orchestrator and repository profiles
+
+**What:**
+- `/run-card` launches every stage in the foreground and waits for it; nothing else runs meanwhile.
+- `CLAUDE.md`: always talk to the user in Spanish, in every session, not only inside `/run-card`.
+- Restarting a card archives instead of deleting: the folder goes to
+  `tasks/<CARD-ID>/aborted/<UTC time>/`, clean worktrees are removed and their branches renamed
+  `aborted/<CARD-ID>-<UTC time>`; a worktree with uncommitted changes stops the restart.
+- Repository profiles: `repos/README.md` (format) and `repos/java-skeleton.md`. The orchestrator
+  passes them to `architect`, `coder` and `qa`, and stops before `architect` if a repo has none.
+- `scripts/allow_qa_commands.py`: `PreToolUse` hook for `qa` that pre-approves commands starting
+  with a prefix from a profile's `## QA commands` (or a read-only filter), including every part of
+  a compound command and every `$(...)`. Anything else, and any redirection to a file, still asks.
+  It never blocks.
+- No dependency on the word "Necesidad": the BA understands what the card asks however it is
+  written and asks when it does not; the orchestrator no longer rejects a card for its format.
+
+**Why:** items carried over from ARQ-27 (qa ran in the background in ARQ-12, a session answered in
+English, aborted runs were lost, agents deduced each repo's nature by exploring, qa needed
+permission for every verification command), plus cards being rejected for their wording.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself.
+
+**Verification:**
+- `allow_qa_commands.py` allows `docker build`, `D=$(mktemp -d)`, `docker run -u "$(id -u):$(id -g)" …`,
+  `cd … && ./gradlew build 2>&1 | tail`, `java -jar … & sleep`, `curl … | head`; it leaves for
+  the normal prompt `java -jar … & rm -rf /`, `curl $(rm -rf x)`, a nested `$(…$(rm x))`,
+  `sed -i`, `cat f > g` and `X=1 rm f`.
+- No reference to a `Necesidad` section remains in agents, the orchestrator or `CLAUDE.md`.
+- Not yet verified: foreground stages, profile hand-off and restart archiving in a real run (the
+  next card on `java-skeleton` is the check).
 

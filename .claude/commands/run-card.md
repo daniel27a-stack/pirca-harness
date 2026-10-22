@@ -20,23 +20,35 @@ Tools: board operations only through the `pirca-board` skill, hosting operations
     (`date -u +%Y-%m-%dT%H:%MZ`), then re-run **the blocked stage** and continue from there.
   - Otherwise continue with the first stage that is not `done`.
 - If it does not exist, start at step 1.
+- If the user asks to **restart** the card from scratch, archive, never delete:
+  1. Move everything in `tasks/$ARGUMENTS/` into `tasks/$ARGUMENTS/aborted/<UTC time>/`
+     (`date -u +%Y%m%dT%H%MZ`); earlier `aborted/` folders stay where they are.
+  2. For each worktree in the archived `task.json`: if it has uncommitted changes, stop and tell
+     the user. Otherwise remove it (`git -C <repo path> worktree remove <worktree>`) and rename its
+     branch to `aborted/$ARGUMENTS-<UTC time>`, so its commits are kept.
+  3. Start at step 1.
 
 ## 1. Intake (you)
 1. Snapshot the card with pirca-board: `board.py snapshot $ARGUMENTS tasks/$ARGUMENTS/card.md`.
    If the card is not found or is ambiguous, stop and tell the user.
 2. **Gates** — stop and tell the user (do not create anything else) when:
-   - the description has no `Necesidad` section, or it is empty;
    - the card is in the `decisiones` list or is clearly an open decision.
+
+   Never stop because of how the card is written (missing titles, sections or keywords):
+   understanding what is wanted, and asking when it is not clear, is the BA's job.
 3. `python3 scripts/progress.py init $ARGUMENTS`, and create `metrics.json` with an empty `runs` list.
 4. Move the card to `en-curso` with pirca-board.
 
-## 2. Stages (subagents, in strict order, foreground)
+## 2. Stages (subagents, in strict order, in the foreground)
 `ba` → **criteria approval (user)** → `architect` → `prep` → `coder` → `qa` → `docs`
 
 For each stage:
 1. `python3 scripts/progress.py start $ARGUMENTS <stage>`, then launch the subagent with a short prompt: the card ID, the task folder path, the attempt
-   number, and — on a retry — the reason (e.g. "qa failed, see qa-report.md").
+   number, and — on a retry — the reason (e.g. "qa failed, see qa-report.md"). For `architect`,
+   `coder` and `qa`, also the path of the profile `repos/<repo-name>.md` of each repo in `task.json`.
    Do not paste file contents; the agent reads them.
+   Launch it **in the foreground**, never in the background, and wait for its result: nothing else
+   runs while a stage is running.
 2. When it returns, record metrics: run `python3 scripts/agent_usage.py <agent-id>` and append
    the result to `metrics.json` `runs` with `stage`, `attempt` and `status`; update `totals`.
    If the transcript is not found, record what the Agent result reported and note it.
@@ -45,6 +57,9 @@ For each stage:
 4. Branch on the status:
    - `done` after `ba` → **always** run the criteria approval gate (below); only when the
      user approves, continue with `architect`.
+   - before `architect`: every repo in `task.json` must have a profile `repos/<repo-name>.md`.
+     If one is missing, set the card `blocked` and tell the user: profiles are written with the
+     user, not by agents.
    - `done` after any other stage → next stage.
    - `blocked` → **stop and bring the blocker to the user** (the `## Blocker` section of
      `progress.md`) in Spanish, using the question format below. Wait. When the user answers, append the
@@ -98,3 +113,4 @@ Make it impossible to misread:
 - Never skip a stage, never run stages in parallel, never do a stage's work yourself.
 - Never push to main, never merge PRs.
 - Speak Spanish to the user; write English in every repository file.
+- Never delete a card's records or branches: an abandoned run is archived (step 0).
