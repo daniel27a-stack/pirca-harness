@@ -16,6 +16,9 @@ and **how it was verified**.
 | 2026-10-11 | QA failure → one automatic retry of `coder`, then stop | Cheap fixes happen alone; repeated failures need a human |
 | 2026-10-11 | Retrospective runs after the merge and only proposes | The user's review changes are the best signal; changing agents is a user decision |
 | 2026-10-11 | No agent teams or dynamic workflows yet | The flow is sequential and needs user input mid-run, which workflows do not allow |
+| 2026-10-22 | Card state in `progress.json`, written only by `scripts/progress.py`; `progress.md` is generated from it | Agents edited `progress.md` by hand and wrote invented timestamps; one writer makes state consistent and checkable |
+| 2026-10-22 | Board and code hosting only through the skills `pirca-board` and `pirca-forge` | Tool commands and ids were repeated across agents, the orchestrator and `CLAUDE.md`; changing tool means changing one skill |
+| 2026-10-22 | `Co-Authored-By` names the model that actually wrote the change (Sonnet 5.5 for flow agents, the session model for work done in conversation) | Attribution should be truthful |
 
 ---
 
@@ -110,3 +113,45 @@ ARQ-28; three restarts and a PR closed without merge in ARQ-32). The agent was a
 
 **Verification:** no current reference to `refinement` remains outside history; the real check is
 the next card's BA run.
+
+## 2026-10-22 — ARQ-40: Encapsulate the harness (stage protocol, state, board, forge, commits)
+
+**What:**
+- `pirca-stage-protocol` skill, preloaded into every stage agent: what to read first (progress,
+  `resolutions.md`, `task.json`, the target's `CONTRIBUTING.md`), recording state only through the
+  script, blocking with all questions at once (options, recommendation, assumptions A1…), reporting
+  only what was run, and the final `STATUS:` line. The seven agents now keep only what is specific
+  to their stage.
+- `scripts/progress.py`: the only writer of card state (`init`, `start`, `set`, `log`, `card`,
+  `show`, `check`). `progress.json` is the source of truth; `progress.md` is generated and `check`
+  detects hand edits. Timestamps come from the script (UTC, minutes). Cards from before ARQ-40
+  are not migrated.
+- `pirca-board` skill (`board.py`: `find`, `snapshot`, `move`, `comment`; ids in `board.json`).
+  Descriptions are never rewritten; long comments are split, since the board API rejects long
+  requests.
+- `pirca-forge` skill (`forge.py`: `push`, `pr-create`, `pr-state`, `pr-review`; refuses
+  main/master) and the commit conventions, including `Co-Authored-By` with the real model.
+- `ba` and `architect` get Bash restricted by the new `guard_bash_readonly.py` hook: only
+  `progress.py set|log|show|check`, read-only git, `date` and read-only filters; no redirections.
+- `/run-card`, `CLAUDE.md` ("Where things live" table), `tasks/README.md` and `pirca-conventions`
+  point to these pieces instead of repeating them. `settings.json` allows the three scripts
+  instead of `trello`, `gh pr` and `git push`. The task field `trello_card_id` is now `board_card_id`.
+- Absorbs ARQ-39 (board and forge skills).
+
+**Why:** the same knowledge (tool commands, ids, honesty rules, timestamps, commit format) was
+copied in several agents and the orchestrator, and drifted; agents wrote state by hand.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself; no
+card was running.
+
+**Verification:**
+- YAML frontmatter of the 7 agents, 4 skills and `/run-card` parses, and every preloaded skill
+  exists; `settings.json` parses; all scripts compile.
+- `progress.py` dry run on a scratch copy: ba → criteria approval → architect blocked with a
+  blocker file → card blocked; `check` passes, then flags a hand edit of `progress.md`;
+  `set coder failed` is refused (only qa).
+- `guard_bash_readonly.py`: allows `progress.py set` with a quoted `->` and
+  `git -C … log | head`; blocks `echo > f`, `git push` and `rm -rf`.
+- `board.py find ARQ-40` returns the card in `en-curso`; `forge.py push . main` is refused.
+- Not yet verified: a full card run through the new flow (the next card is the real check).
+

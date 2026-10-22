@@ -5,9 +5,11 @@ and the folder is committed as the record of how the card was done.
 
 | File | Written by | Content |
 |---|---|---|
-| `card.md` | orchestrator | Snapshot of the Trello card (title, labels, description, URL) |
+| `card.md` | orchestrator (pirca-board `snapshot`) | Snapshot of the card (title, list, description, URL) |
 | `task.json` | ba (+ architect, prep) | Structured task data (schema below) |
-| `progress.md` | every stage | Stage status table + log. **Source of truth for resuming** |
+| `progress.json` | `scripts/progress.py` only | Card and stage state, blocker, log. **Source of truth for resuming** |
+| `progress.md` | `scripts/progress.py` only | Generated from `progress.json` for people to read. Never edited by hand |
+| `blocker-<stage>.md` | the blocked stage | All open questions, with options, recommendation and assumptions |
 | `resolutions.md` | orchestrator | Answers from the user to blockers, in order |
 | `criteria.md` | ba | Need, scope, acceptance criteria (AC-n), out of scope, assumptions. **Approved by the user** before architect runs |
 | `implementation.md` | architect | Approach, files, ordered steps per AC, **verification plan** (baseline + after) |
@@ -18,6 +20,7 @@ and the folder is committed as the record of how the card was done.
 | `docs-summary.md` | docs | What was documented |
 | `metrics.json` | orchestrator | Tokens, model and time per stage run |
 | `retrospective.md` | retrospective | What went wrong, cost analysis, proposed improvements |
+| `pr-body.md` | orchestrator | Body of the PR opened with pirca-forge |
 
 ## `task.json`
 
@@ -25,7 +28,7 @@ and the folder is committed as the record of how the card was done.
 {
   "task_id": "ARQ-12",
   "title": "Step 3: intTest and archTest source sets",
-  "trello_card_id": "6acaad8d1f9ff103ef74f881",
+  "board_card_id": "6acaad8d1f9ff103ef74f881",
   "repos": [
     {
       "name": "java-skeleton",
@@ -40,29 +43,26 @@ and the folder is committed as the record of how the card was done.
 
 Acceptance criteria live in `criteria.md` only (single source of truth).
 
-## `progress.md`
+## `progress.json` and `progress.md`
 
-```markdown
-# ARQ-12 progress
+Written only by `scripts/progress.py` (see its `--help`). Timestamps come from the system clock in
+UTC; nobody writes them by hand.
 
-Status: in-progress | blocked | in-review | done
-
-| Stage | Status | Attempts | Updated |
-|---|---|---|---|
-| ba | done | 2 | 2026-10-11T23:10Z |
-| criteria-approval | done | 2 | 2026-10-11T23:25Z |
-| architect | blocked | 1 | ... |
-| prep | pending | 0 | |
-...
-
-## Blocker
-(only while blocked) stage, question(s) for the user, what is needed to continue
-
-## Log
-- 2026-10-11T23:25Z criteria-approval: approved on round 2 (user narrowed AC-3)
+```
+python3 scripts/progress.py init  ARQ-12                      # orchestrator, at intake
+python3 scripts/progress.py start ARQ-12 coder                # orchestrator, before each attempt
+python3 scripts/progress.py set   ARQ-12 coder done --note "commit dd6cde0, tests green"   # the stage
+python3 scripts/progress.py set   ARQ-12 ba blocked --note "2 questions" --blocker-file tasks/ARQ-12/blocker-ba.md
+python3 scripts/progress.py card  ARQ-12 in-review --pr <url> # orchestrator
+python3 scripts/progress.py check ARQ-12                      # valid values, ordered log, no hand edits
 ```
 
-Stage status values: `pending`, `done`, `blocked`, `failed` (qa only).
+- Card status: `in-progress`, `blocked`, `in-review`, `done`.
+- Stages, in order: `ba`, `criteria-approval`, `architect`, `prep`, `coder`, `qa`, `docs`,
+  `retrospective`. Stage status: `pending`, `in-progress`, `done`, `blocked`, `failed` (qa only).
+- A stage set to `blocked` must carry its questions; setting that stage to `done` clears the blocker.
+- Cards recorded before ARQ-40 have only a hand-written `progress.md` (and the stage `refinement`);
+  they are history and are not migrated.
 
 ## `metrics.json`
 

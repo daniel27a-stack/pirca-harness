@@ -70,14 +70,8 @@ description: Architecture and working conventions of pirca. Preloaded into every
 ## Git and delivery
 - `feature/<CARD-ID>` → PR → `main` (squash) → tag `vX.Y.Z`. Merging certifies, a tag publishes.
 - `main` is protected by a repository ruleset; nobody pushes to it directly.
-- Commit messages and PR titles start with the card ID: `ARQ-12: Add intTest suite`.
+- Commit, push and PR details: skill `pirca-forge`.
 - Everything inside a repository is written in English.
-
-## Working inside pirca-harness
-- **Never invent timestamps.** If you have Bash, use `date -u +%Y-%m-%dT%H:%MZ`. If you do not,
-  write the literal placeholder `<ts>`; the orchestrator replaces it with the real time.
-- Questions for the user go in the `## Blocker` section of `progress.md`, numbered, each with the
-  options and your recommendation, so the orchestrator can present them without rewording.
 
 ## Verification habits that worked
 - Before changing a build, capture a **baseline** (resolved dependencies of the relevant

@@ -30,16 +30,17 @@ It never contains product code: it operates on *target repositories* (for exampl
   start with the card ID.
 - **Never push to `main`** of any repository. Changes reach `main` only through a PR that the
   user merges (squash). A hook enforces this.
-- Never report something as done, passing or verified without having run it and seen the output.
-- Never invent scope, acceptance criteria or design decisions. Missing information is a blocker.
+- Never report what was not run, and never invent scope or decisions (see `pirca-stage-protocol`).
 
-## External tools
+## Where things live
 
-- Trello: `trello` CLI (board `Pirca`, id `6acaad73f66ba8b8e05028ab`). Lists:
-  - Decisiones pendientes `6acaad73e4f33371281d313b`
-  - Backlog `6acaad744a43ff3996630e87`
-  - En curso `6acaad741c64496dc010018d`
-  - En revisión `6acc12e157a0d4c2f0cbb377`
-  - Hecho `6acaad76706ac9f975335df4`
-- GitHub: `gh` CLI, owner `daniel27a-stack`.
-- Commit author email in pirca repos: `pirca.dev@gmail.com` (set per repo, never globally).
+Each piece of knowledge lives in one place; agents and the orchestrator use it, never copy it.
+
+| Topic | Lives in |
+|---|---|
+| Architecture and working conventions | skill `pirca-conventions` |
+| What every stage reads, records, reports and how it blocks | skill `pirca-stage-protocol` |
+| Board (today Trello): cards, lists, ids, comments | skill `pirca-board` |
+| Code hosting (today GitHub): push, PRs; commit conventions | skill `pirca-forge` |
+| Card state (`progress.json` → `progress.md`) | `scripts/progress.py` (the only writer) |
+| Measured cost per stage | `scripts/agent_usage.py` |
