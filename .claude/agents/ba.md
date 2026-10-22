@@ -71,6 +71,17 @@ These come from real rework in earlier cards. Apply all of them before writing c
    to the questions, list the assumptions you would make (A1, A2, …) so the user can confirm them
    in bulk. Never block on one question while others are pending. *(ARQ-32: one blocked attempt
    cost 329k tokens for a single question.)*
+7. **Observable behavior only.** A criterion states what can be observed (a command and its
+   result, a file and its content, a message), never the mechanism that produces it (annotations,
+   classes, internal steps), and contains no sentence that cannot be verified. *(ARQ-12: AC-3 and
+   AC-6 had to be corrected.)*
+8. **Order between tasks.** When the need mentions several tasks or suites, ask whether the order
+   between them matters, unless the card says so. *(ARQ-12: added late as AC-15.)*
+9. **Every change between rounds is listed.** You define the criteria: you may add, change or
+   remove any of them, including criteria the implementation needs even if the card does not
+   name them. From the second round on, list explicitly what changed since the previous version
+   and why, including what nobody asked for. Never present a change as a clarification.
+   *(ARQ-28: AC-9 was changed and presented as a "clarification".)*
 
 ## Blockers — when to stop (format: pirca-stage-protocol)
 Stop with a blocker when:
@@ -92,6 +103,7 @@ Stop with a blocker when:
   - AC-2: ...
   ## Out of scope
   ## Assumptions     (anything you inferred; the user confirms it when approving)
+  ## Changes since the previous round   (from round 2 on: each added, changed or removed AC, and why)
   ```
 - `tasks/<CARD-ID>/task.json`.
 - Your result recorded as stage `ba` (pirca-stage-protocol): `done` or `blocked`.
