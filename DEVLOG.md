@@ -222,3 +222,31 @@ hand, and the docs commit said "Update DEVLOG" while it also changed READMEs.
 **Verification:** agent frontmatter parses. The real check is the next card's QA and docs runs.
 Still pending from ARQ-11 (AC-7): the automatic qa → coder retry, the first time QA fails.
 
+
+## 2026-10-22 — ARQ-44: Reliable output tokens and cost per stage
+
+**What:**
+- Output-token source investigated. Claude Code telemetry (`api_request` events) gives the final
+  output tokens of every API request, with its `request_id` and agent name. In three probe runs on
+  Claude Code 2.1.307 (one or several requests, with and without thinking), the subagent
+  transcript matched it exactly per request (e.g. 140/261/1872 and 95/142/206 in both). The
+  under-count came from older versions, which stored the usage from the start of each response.
+  So the transcript stays the source (no telemetry setup needed), and `agent_usage.py` now reports
+  `claude_code_version` and `output_tokens_reliable` (2.1.307 or later), with a `warning` otherwise.
+- ARQ-12 and ARQ-28 (2.1.296) and ARQ-32 (2.1.300) cannot be recalculated: their transcripts never
+  stored the final output and no telemetry was recorded. Their `metrics.json` get an
+  `output_tokens_note` saying so; the data is unchanged.
+- `retrospective.md`: a per-stage cost table by token type, and for each expensive stage why it
+  cost what it did (with evidence) and whether it was justified; no conclusions from unreliable
+  output tokens.
+
+**Why:** items carried over from ARQ-27: output tokens (the most expensive ones) looked unmeasured
+(80 for qa and docs in ARQ-28), and retrospectives only reported the total.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself.
+
+**Verification:**
+- The three telemetry probes above (`CLAUDE_CODE_ENABLE_TELEMETRY=1`, console exporter, headless
+  runs with one subagent each).
+- `agent_usage.py` on an ARQ-32 transcript: `2.1.300`, `output_tokens_reliable: false`, warning;
+  on a 2.1.307 probe transcript: `true`, no warning.
