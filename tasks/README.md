@@ -77,6 +77,8 @@ python3 scripts/progress.py check ARQ-12                      # valid values, or
       "stage": "coder",
       "attempt": 1,
       "agent_id": "a1b2c3",
+      "claude_code_version": "2.1.307",
+      "output_tokens_reliable": true,
       "models": ["claude-sonnet-5"],
       "tokens": { "input": 0, "output": 0, "cache_read": 0, "cache_creation": 0, "total": 0 },
       "api_requests": 0,
@@ -92,4 +94,7 @@ python3 scripts/progress.py check ARQ-12                      # valid values, or
 ```
 
 Each run's numbers come from `python3 scripts/agent_usage.py <agent-id>`, which reads the
-subagent transcript, so they are measured, not estimated.
+subagent transcript, so they are measured, not estimated. Output tokens are reliable only for
+Claude Code 2.1.307 or later (`output_tokens_reliable`); the metrics of ARQ-12, ARQ-28 and ARQ-32
+were recorded with 2.1.296 and 2.1.300, under-count output tokens and cannot be recalculated:
+those transcripts never stored the final output.

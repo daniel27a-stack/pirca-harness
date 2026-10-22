@@ -174,5 +174,6 @@
     "tokens": 2549503,
     "duration_s": 895.4,
     "runs": 8
-  }
+  },
+  "output_tokens_note": "Output tokens are under-counted in every run: recorded with Claude Code 2.1.296, whose subagent transcripts keep the usage from the start of each response. No other source exists for these runs, so they cannot be recalculated (ARQ-44). Input and cache tokens are correct."
 }

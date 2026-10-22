@@ -30,8 +30,13 @@ changed during review.
 
 ## What to analyze
 1. **Defects in the flow**: blockers and why they happened, QA failures and retries, anything the user had to correct in the PR.
-2. **Cost**: tokens and time per stage from `metrics.json`; which stage was most expensive and
-   whether that was justified.
+2. **Cost per stage**, from `metrics.json`: a table per stage run (attempt, input, output,
+   cache read, cache creation, total, time). Do not stop at the total: for each expensive stage,
+   explain **why** it cost what it did, with evidence (what it read or explored, how many API
+   requests and tool uses, retries and blocked attempts, criteria rounds), and say whether that
+   was justified for the change or what would have made it cheaper. Cache reads are much cheaper
+   than output, so compare by type, not only by total. If a run has `output_tokens_reliable: false`,
+   say that its output tokens are under-counted and do not draw conclusions from them.
 3. **Root causes**: unclear card, missing convention, weak agent instruction, missing tool
    permission, environment problem.
 

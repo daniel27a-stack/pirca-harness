@@ -5,6 +5,11 @@ Usage: agent_usage.py <agent-id>
 
 Finds ~/.claude/projects/*/*/subagents/agent-<agent-id>.jsonl and prints JSON with the
 model(s), token usage (deduplicated per API request), start/end timestamps and duration.
+
+Output tokens are reliable only for transcripts written by Claude Code 2.1.307 or later: there,
+the last entry of each request matches the `api_request` telemetry event exactly (checked with and
+without thinking). Transcripts from 2.1.300 and earlier keep the usage from the start of the
+response, so their output tokens are under-counted; the result says so in `warning`.
 """
 import glob
 import json
@@ -12,9 +17,18 @@ import os
 import sys
 from datetime import datetime
 
+RELIABLE_OUTPUT_SINCE = (2, 1, 307)
+
 
 def parse_ts(value: str) -> datetime:
     return datetime.fromisoformat(value.replace("Z", "+00:00"))
+
+
+def version_tuple(value: str) -> tuple[int, ...]:
+    try:
+        return tuple(int(p) for p in value.split("."))
+    except ValueError:
+        return ()
 
 
 def main() -> int:
@@ -32,8 +46,10 @@ def main() -> int:
     models: set[str] = set()
     timestamps: list[datetime] = []
     tool_uses = 0
+    version = None
     for line in open(files[0], encoding="utf-8"):
         entry = json.loads(line)
+        version = version or entry.get("version")
         if entry.get("timestamp"):
             timestamps.append(parse_ts(entry["timestamp"]))
         message = entry.get("message")
@@ -57,8 +73,11 @@ def main() -> int:
 
     started = min(timestamps) if timestamps else None
     ended = max(timestamps) if timestamps else None
-    print(json.dumps({
+    reliable = version_tuple(version or "") >= RELIABLE_OUTPUT_SINCE
+    result = {
         "agent_id": agent_id,
+        "claude_code_version": version,
+        "output_tokens_reliable": reliable,
         "models": sorted(models),
         "api_requests": len(usage_by_request),
         "tool_uses": tool_uses,
@@ -66,7 +85,11 @@ def main() -> int:
         "started_at": started.isoformat() if started else None,
         "ended_at": ended.isoformat() if ended else None,
         "duration_s": round((ended - started).total_seconds(), 1) if started else None,
-    }, indent=2))
+    }
+    if not reliable:
+        result["warning"] = ("output tokens under-counted: transcript written by Claude Code "
+                             f"{version}, reliable only since 2.1.307")
+    print(json.dumps(result, indent=2))
     return 0
 
 
