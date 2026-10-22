@@ -205,3 +205,20 @@ permission for every verification command), plus cards being rejected for their 
 **How:** done in conversation, not by the agentic flow, because it changes the flow itself.
 
 **Verification:** agent frontmatter parses. The real check is the next card's BA and architect runs.
+
+## 2026-10-22 — ARQ-43: QA "fix in docs" and docs commit messages
+
+**What:**
+- `qa.md`: a cheap cosmetic defect in documentation or text that breaks no acceptance criterion
+  goes under `## Fix in docs` in `qa-report.md` (file, line, exact fix) instead of a loose note;
+  it does not fail the card. Anything needing a code change is not a "fix in docs".
+- `docs.md`: applies every "fix in docs" item, and its commit message names every file it changes.
+
+**Why:** items carried over from ARQ-27. In ARQ-12 the orchestrator passed QA's note to docs by
+hand, and the docs commit said "Update DEVLOG" while it also changed READMEs.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself.
+
+**Verification:** agent frontmatter parses. The real check is the next card's QA and docs runs.
+Still pending from ARQ-11 (AC-7): the automatic qa → coder retry, the first time QA fails.
+
