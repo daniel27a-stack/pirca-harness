@@ -6,10 +6,10 @@ and the folder is committed as the record of how the card was done.
 | File | Written by | Content |
 |---|---|---|
 | `card.md` | orchestrator | Snapshot of the Trello card (title, labels, description, URL) |
-| `task.json` | refinement (+ architect, prep) | Structured task data (schema below) |
+| `task.json` | ba (+ architect, prep) | Structured task data (schema below) |
 | `progress.md` | every stage | Stage status table + log. **Source of truth for resuming** |
 | `resolutions.md` | orchestrator | Answers from the user to blockers, in order |
-| `criteria.md` | refinement (BA) | Need, scope, acceptance criteria (AC-n), out of scope, assumptions. **Approved by the user** before architect runs |
+| `criteria.md` | ba | Need, scope, acceptance criteria (AC-n), out of scope, assumptions. **Approved by the user** before architect runs |
 | `implementation.md` | architect | Approach, files, ordered steps per AC, **verification plan** (baseline + after) |
 | `prep-report.md` | prep | Worktree, branch, baseline results |
 | `baseline/` | prep | Raw baseline outputs (dependency trees, test results) |
@@ -49,7 +49,7 @@ Status: in-progress | blocked | in-review | done
 
 | Stage | Status | Attempts | Updated |
 |---|---|---|---|
-| refinement | done | 2 | 2026-10-11T23:10Z |
+| ba | done | 2 | 2026-10-11T23:10Z |
 | criteria-approval | done | 2 | 2026-10-11T23:25Z |
 | architect | blocked | 1 | ... |
 | prep | pending | 0 | |

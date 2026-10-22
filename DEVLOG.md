@@ -88,3 +88,25 @@ follows; no card was running at the time.
 
 **Verification:** no old type names left outside `tasks/` (historical records); the real check is
 the next card (ARQ-32) running without contradictions between the card and the skill.
+
+## 2026-10-22 — ARQ-30: BA improvements and rename `refinement` → `ba`
+
+**What:**
+- The BA agent is now `ba` (`.claude/agents/ba.md`, renamed from `refinement.md` with its history).
+  Current references (`CLAUDE.md`, `/run-card`, `tasks/README.md`) say `ba`; records of past cards
+  under `tasks/` and older DEVLOG entries keep `refinement`, since they are history.
+- New section "Rules that prevent rework" in the BA, one rule per lesson from earlier cards:
+  1. Interface changes: list every existing element and ask keep/remove (ARQ-32).
+  2. New deliverables: ask for name, audience and location (ARQ-28).
+  3. Examples and requested rules are verified against the source, citing file and line (ARQ-28).
+  4. "Nothing else changes" criteria allow the docs-stage DEVLOG entry (ARQ-28).
+  5. Nothing user-visible that the card does not name, unless listed as an assumption (ARQ-32).
+  6. All open questions at once, with bulk-confirmable assumptions (ARQ-32).
+- The BA reads the target repository's `CONTRIBUTING.md` first.
+
+**Why:** the BA stage was the most expensive and the source of most rework (four criteria rounds in
+ARQ-28; three restarts and a PR closed without merge in ARQ-32). The agent was always meant to be
+"the BA", but its name never changed.
+
+**Verification:** no current reference to `refinement` remains outside history; the real check is
+the next card's BA run.

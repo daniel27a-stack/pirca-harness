@@ -1,5 +1,5 @@
 ---
-description: Run (or resume) a pirca card end to end — refinement (criteria for user approval), architect, prep, coder, qa, docs, PR; after merge, retrospective.
+description: Run (or resume) a pirca card end to end — ba (criteria for user approval), architect, prep, coder, qa, docs, PR; after merge, retrospective.
 argument-hint: <CARD-ID, e.g. ARQ-12>
 ---
 
@@ -31,7 +31,7 @@ Card: **$ARGUMENTS**. Task folder: `tasks/$ARGUMENTS/`. Conventions: `CLAUDE.md`
 5. Move the card to "En curso": `trello cards move --card <id> --list 6acaad741c64496dc010018d`.
 
 ## 2. Stages (subagents, in strict order, foreground)
-`refinement` → **criteria approval (user)** → `architect` → `prep` → `coder` → `qa` → `docs`
+`ba` → **criteria approval (user)** → `architect` → `prep` → `coder` → `qa` → `docs`
 
 For each stage:
 1. Launch the subagent with a short prompt: the card ID, the task folder path, the attempt
@@ -45,7 +45,7 @@ For each stage:
 4. Read the agent's last line (`STATUS: ...`) **and** `progress.md`. If they disagree, trust
    neither: stop and tell the user.
 5. Branch on the status:
-   - `done` after `refinement` → **always** run the criteria approval gate (below); only when the
+   - `done` after `ba` → **always** run the criteria approval gate (below); only when the
      user approves, continue with `architect`.
    - `done` after any other stage → next stage.
    - `blocked` → set Status `blocked` in `progress.md`, then **stop and bring the blocker to the
@@ -58,7 +58,7 @@ For each stage:
 ### Criteria approval gate
 1. Present `criteria.md` to the user **in Spanish**: need, scope, each AC, out of scope and the
    assumptions the BA made. Ask: approve as is, or correct.
-2. Corrections → append them verbatim to `resolutions.md` with a timestamp, re-run `refinement`
+2. Corrections → append them verbatim to `resolutions.md` with a timestamp, re-run `ba`
    (next attempt) and present the new criteria. Repeat until approved.
 3. Approved → record it in `progress.md` (`criteria-approval` row = `done`, log line with the
    approval round) and copy the approved criteria **in Spanish** to the Trello card description
