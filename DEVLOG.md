@@ -481,3 +481,28 @@ be withdrawn after the coder had started.
 **Verification:** the command's frontmatter parses. The real check is the next time a user delegates
 the answer to a question.
 
+## 2026-10-23 — ARQ-61: Skills pirca-java and pirca-errors
+
+**What:** two new skills, neither preloaded: a repository profile lists them in its Skills section
+and the architect and the coder read them.
+- `pirca-java`: how pirca writes Java. General style, Lombok (not by default), lambdas, streams and
+  `parallelStream`, one responsibility per method and encapsulation, and design patterns (problem
+  first, the signals that call for one, a design line in `implementation.md`, adapters isolating
+  what is not yours).
+- `pirca-errors`: the error design. An unchecked base exception with `code`, `message` and `status`,
+  `ProblemDetail` answers, a generic 500 for unexpected errors, and no trace id until `lib-logging`.
+`CLAUDE.md` lists both in "Where things live".
+
+**Why:** card ARQ-61. The first real Java content (`lib-errors`) would have been left to the model's
+taste; the user's criteria were not written anywhere. The errors went to their own skill because they
+are the design of one concern, used by `lib-errors` and by the services that use it: an agent working
+on another library should not read them. The same will apply to tenant and logging.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself. The
+criteria come from the user's answers; the three error decisions (code format, unexpected errors,
+trace id) are the recommended defaults the user did not change.
+
+**Verification:** the frontmatter of every skill, agent and command parses (a first version of the
+`pirca-java` description did not: a colon and a `#` broke the YAML, and the check caught it). The real
+check is the first library written with them (ARQ-21) and the user's review of that PR. The profile
+of `lib-errors` that lists them is ARQ-62.
