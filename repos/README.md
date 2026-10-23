@@ -6,6 +6,9 @@ its profile carries what agents need on top of that. The orchestrator passes the
 `architect`, `coder` and `qa`. A card whose repository has no profile stops before `architect`:
 profiles are written with the user, not by agents.
 
+The `## QA commands` list pre-approves commands for `qa` only. It does not restrict any other agent:
+those commands, and any other, follow the normal permission flow.
+
 Sections, in this order:
 
 | Section | Content |

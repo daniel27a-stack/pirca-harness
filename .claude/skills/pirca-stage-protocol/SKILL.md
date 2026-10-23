@@ -35,6 +35,11 @@ Block only in the cases your agent file lists. When you block, write `blocker-<s
 **all** open questions at once, numbered, and for each one the options with their consequences and
 your recommendation.
 
+A missing permission is never a reason to block. If a command is not pre-approved, run it anyway:
+the permission request reaches the user, who approves it. Do not stop or ask beforehand. A hook
+that refuses a command is different: it is a firm limit, so do not try to get around it; say so in
+your result.
+
 ## 4. Report only what you ran
 - Every result you report comes from a command you ran and output you read. Never say that a
   build, test or check passed without having run it.

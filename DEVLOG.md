@@ -417,3 +417,19 @@ compared with the card.
 
 **Verification:** frontmatter of the agent parses. The real check is the next retrospective.
 
+## 2026-10-23 — ARQ-58: No agent blocks for a missing permission
+
+**What:** `pirca-stage-protocol` says that a missing permission is never a reason to block: the
+agent runs the command and the permission request reaches the user. A hook that refuses a command is
+a firm limit and is reported, not bypassed. `repos/README.md` says the `## QA commands` list
+pre-approves commands for `qa` only and restricts no other agent.
+
+**Why:** card ARQ-58. In ARQ-56 `prep` stopped before running `sha256sum` and `xargs`, because it read
+the user's answer ("QA may ask for them") as a rule that applied only to `qa`. The first attempt
+cost about 620k tokens (Haiku, from `metrics.json`) and a round trip with the user.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself.
+
+**Verification:** frontmatter of the agents is unchanged and parses. The real check is the next card
+where an agent needs a command that is not pre-approved.
+
