@@ -24,6 +24,7 @@ and **how it was verified**.
 | 2026-10-22 | A card is understood by its content, never by titles or keywords | Requiring a `Necesidad` section rejected clear cards; asking is the BA's job |
 | 2026-10-23 | The user no longer approves criteria: the BA understands the need, asks only when it does not, and writes the criteria on its own. Replaces the 2026-10-11 approval gate | The approval rounds were slow and asked the user to confirm what was deducible (ARQ-29: 6 questions, 5 deducible, plus a correction round). The user reviews the result in the PR |
 | 2026-10-23 | Card records (`tasks/<CARD-ID>/`) stay local and are no longer committed. Replaces the 2026-10-11 decision to commit them | What lasts already lives elsewhere (criteria on the card, what/why/verification in the target `DEVLOG.md`, proposals as cards); committing cost one extra PR per card |
+| 2026-10-23 | `prep` and `docs` run on Haiku; the other agents stay on Sonnet. Refines the 2026-10-11 decision "all agents on Sonnet" | Both do mechanical work (worktree and baseline; DEVLOG entry from `qa-report.md`), and Haiku is much cheaper per token. Switch back if their retrospectives show errors caused by the model |
 ---
 
 ## 2026-10-11 — ARQ-11: First version of the harness
@@ -339,4 +340,20 @@ body file exists, `pr-create ../.. --body-file pr-body.md` called from `tasks/ZZ
 the repository and passes the absolute path of the file, which exists. Control: the previous
 version passes `pr-body.md` unchanged, which does not exist from the repository's directory. The
 real check is the next card's PR.
+
+## 2026-10-23 — ARQ-52: Lighter models for mechanical agents
+
+**What:** `prep.md` and `docs.md` use `model: haiku`. `pirca-forge` names the model in
+`Co-Authored-By` per agent: Haiku 5.5 for `docs` (the only one of the two that commits), Sonnet 5.5
+for the rest.
+
+**Why:** card ARQ-52. Both stages do mechanical work and cost the same per token as the stages that
+design or verify; Haiku is much cheaper.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself.
+
+**Verification:** frontmatter of the two agents parses and the `haiku` alias resolves to
+`claude-haiku-5-5` (seen in a headless run with `--model haiku`). Not verified: a real card with
+these two stages on Haiku; the retrospective of the next card shows whether they followed the
+stage protocol.
 

@@ -2,7 +2,7 @@
 name: docs
 description: Records a verified pirca card in the target repository's DEVLOG (and README when usage changed) and commits it on feature/<CARD-ID>.
 tools: Read, Write, Edit, Grep, Glob, Bash
-model: sonnet
+model: haiku
 maxTurns: 25
 memory: project
 skills:
