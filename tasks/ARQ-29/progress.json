@@ -1,0 +1,168 @@
+{
+  "card": "ARQ-29",
+  "status": "done",
+  "pr": "https://github.com/daniel27a-stack/java-skeleton/pull/7",
+  "blocker": null,
+  "stages": [
+    {
+      "name": "ba",
+      "status": "done",
+      "attempts": 3,
+      "updated": "2026-10-22T23:49Z"
+    },
+    {
+      "name": "criteria-approval",
+      "status": "done",
+      "attempts": 0,
+      "updated": "2026-10-22T23:53Z"
+    },
+    {
+      "name": "architect",
+      "status": "done",
+      "attempts": 1,
+      "updated": "2026-10-22T23:55Z"
+    },
+    {
+      "name": "prep",
+      "status": "done",
+      "attempts": 1,
+      "updated": "2026-10-22T23:56Z"
+    },
+    {
+      "name": "coder",
+      "status": "done",
+      "attempts": 1,
+      "updated": "2026-10-22T23:59Z"
+    },
+    {
+      "name": "qa",
+      "status": "done",
+      "attempts": 1,
+      "updated": "2026-10-23T00:02Z"
+    },
+    {
+      "name": "docs",
+      "status": "done",
+      "attempts": 1,
+      "updated": "2026-10-23T00:02Z"
+    },
+    {
+      "name": "retrospective",
+      "status": "done",
+      "attempts": 1,
+      "updated": "2026-10-23T00:21Z"
+    }
+  ],
+  "log": [
+    {
+      "ts": "2026-10-22T23:42Z",
+      "stage": "intake",
+      "note": "card started"
+    },
+    {
+      "ts": "2026-10-22T23:42Z",
+      "stage": "ba",
+      "note": "attempt 1 started"
+    },
+    {
+      "ts": "2026-10-22T23:43Z",
+      "stage": "ba",
+      "note": "6 questions on inverse naming rule scope"
+    },
+    {
+      "ts": "2026-10-22T23:46Z",
+      "stage": "ba",
+      "note": "attempt 2 started"
+    },
+    {
+      "ts": "2026-10-22T23:46Z",
+      "stage": "ba",
+      "note": "criteria.md and task.json written (10 ACs)"
+    },
+    {
+      "ts": "2026-10-22T23:49Z",
+      "stage": "ba",
+      "note": "attempt 3 started"
+    },
+    {
+      "ts": "2026-10-22T23:49Z",
+      "stage": "ba",
+      "note": "criteria.md round 3: AC-2, AC-7, AC-8 corrected per resolutions"
+    },
+    {
+      "ts": "2026-10-22T23:53Z",
+      "stage": "criteria-approval",
+      "note": "approved on round 2"
+    },
+    {
+      "ts": "2026-10-22T23:54Z",
+      "stage": "architect",
+      "note": "attempt 1 started"
+    },
+    {
+      "ts": "2026-10-22T23:55Z",
+      "stage": "architect",
+      "note": "implementation.md written (4 inverse rules, allowEmptyShould, READMEs)"
+    },
+    {
+      "ts": "2026-10-22T23:55Z",
+      "stage": "prep",
+      "note": "attempt 1 started"
+    },
+    {
+      "ts": "2026-10-22T23:56Z",
+      "stage": "prep",
+      "note": "worktree java-skeleton-ARQ-29 created; baseline archTest passes, stray controller passes (gap confirmed)"
+    },
+    {
+      "ts": "2026-10-22T23:57Z",
+      "stage": "coder",
+      "note": "attempt 1 started"
+    },
+    {
+      "ts": "2026-10-22T23:59Z",
+      "stage": "coder",
+      "note": "4 inverse naming rules + README updates committed 7cb2db3"
+    },
+    {
+      "ts": "2026-10-22T23:59Z",
+      "stage": "qa",
+      "note": "attempt 1 started"
+    },
+    {
+      "ts": "2026-10-23T00:02Z",
+      "stage": "qa",
+      "note": "all 10 ACs met; verified both variants and stray-class scenarios"
+    },
+    {
+      "ts": "2026-10-23T00:02Z",
+      "stage": "docs",
+      "note": "attempt 1 started"
+    },
+    {
+      "ts": "2026-10-23T00:02Z",
+      "stage": "docs",
+      "note": "DEVLOG entry committed on feature/ARQ-29"
+    },
+    {
+      "ts": "2026-10-23T00:03Z",
+      "stage": "card",
+      "note": "status in-review, PR https://github.com/daniel27a-stack/java-skeleton/pull/7"
+    },
+    {
+      "ts": "2026-10-23T00:20Z",
+      "stage": "retrospective",
+      "note": "attempt 1 started"
+    },
+    {
+      "ts": "2026-10-23T00:21Z",
+      "stage": "retrospective",
+      "note": "retrospective.md written with 4 proposals"
+    },
+    {
+      "ts": "2026-10-23T00:21Z",
+      "stage": "card",
+      "note": "status done"
+    }
+  ]
+}

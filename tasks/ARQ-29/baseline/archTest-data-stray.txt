@@ -1,0 +1,12 @@
+> Task :compileJava
+> Task :processResources UP-TO-DATE
+> Task :classes
+> Task :jar
+> Task :compileArchTestJava UP-TO-DATE
+> Task :processArchTestResources UP-TO-DATE
+> Task :archTestClasses UP-TO-DATE
+> Task :archTest
+
+BUILD SUCCESSFUL in 4s
+6 actionable tasks: 3 executed, 3 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.5.1/userguide/configuration_cache_enabling.html

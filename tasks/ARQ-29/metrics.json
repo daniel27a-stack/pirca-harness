@@ -1,0 +1,191 @@
+{
+  "runs": [
+    {
+      "stage": "ba",
+      "attempt": 1,
+      "status": "blocked",
+      "agent_id": "a738b1555f5698fc1",
+      "models": [
+        "claude-sonnet-5-5"
+      ],
+      "tokens": {
+        "input": 20,
+        "output": 3995,
+        "cache_read": 191362,
+        "cache_creation": 28880,
+        "total": 224257
+      },
+      "duration_s": 50.4,
+      "api_requests": 10,
+      "tool_uses": 33,
+      "output_tokens_reliable": true
+    },
+    {
+      "stage": "ba",
+      "attempt": 2,
+      "status": "done",
+      "agent_id": "abd2eb404045e7983",
+      "models": [
+        "claude-sonnet-5-5"
+      ],
+      "tokens": {
+        "input": 14,
+        "output": 3552,
+        "cache_read": 120323,
+        "cache_creation": 12427,
+        "total": 136316
+      },
+      "duration_s": 33.6,
+      "api_requests": 7,
+      "tool_uses": 23,
+      "output_tokens_reliable": true
+    },
+    {
+      "stage": "ba",
+      "attempt": 3,
+      "status": "done",
+      "agent_id": "a475959dd48cedc60",
+      "models": [
+        "claude-sonnet-5-5"
+      ],
+      "tokens": {
+        "input": 12,
+        "output": 2609,
+        "cache_read": 100819,
+        "cache_creation": 12361,
+        "total": 115801
+      },
+      "duration_s": 30.1,
+      "api_requests": 6,
+      "tool_uses": 21,
+      "output_tokens_reliable": true
+    },
+    {
+      "stage": "architect",
+      "attempt": 1,
+      "status": "done",
+      "agent_id": "aec95c288eb9944a0",
+      "models": [
+        "claude-sonnet-5-5"
+      ],
+      "tokens": {
+        "input": 14,
+        "output": 6982,
+        "cache_read": 137514,
+        "cache_creation": 32004,
+        "total": 176514
+      },
+      "duration_s": 59.9,
+      "api_requests": 7,
+      "tool_uses": 37,
+      "output_tokens_reliable": true
+    },
+    {
+      "stage": "prep",
+      "attempt": 1,
+      "status": "done",
+      "agent_id": "a53a00f63bc04b506",
+      "models": [
+        "claude-sonnet-5-5"
+      ],
+      "tokens": {
+        "input": 14,
+        "output": 3497,
+        "cache_read": 125357,
+        "cache_creation": 24962,
+        "total": 153830
+      },
+      "duration_s": 77.9,
+      "api_requests": 7,
+      "tool_uses": 19,
+      "output_tokens_reliable": true
+    },
+    {
+      "stage": "coder",
+      "attempt": 1,
+      "status": "done",
+      "agent_id": "aa60d10d811e8572c",
+      "models": [
+        "claude-sonnet-5-5"
+      ],
+      "tokens": {
+        "input": 24,
+        "output": 7031,
+        "cache_read": 295509,
+        "cache_creation": 30625,
+        "total": 333189
+      },
+      "duration_s": 151.9,
+      "api_requests": 12,
+      "tool_uses": 26,
+      "output_tokens_reliable": true
+    },
+    {
+      "stage": "qa",
+      "attempt": 1,
+      "status": "done",
+      "agent_id": "a1426ec99f64cb253",
+      "models": [
+        "claude-sonnet-5-5"
+      ],
+      "tokens": {
+        "input": 18,
+        "output": 5817,
+        "cache_read": 212289,
+        "cache_creation": 30304,
+        "total": 248428
+      },
+      "duration_s": 135.6,
+      "api_requests": 9,
+      "tool_uses": 19,
+      "output_tokens_reliable": true
+    },
+    {
+      "stage": "docs",
+      "attempt": 1,
+      "status": "done",
+      "agent_id": "a5057876e20317c3a",
+      "models": [
+        "claude-sonnet-5-5"
+      ],
+      "tokens": {
+        "input": 10,
+        "output": 2510,
+        "cache_read": 80153,
+        "cache_creation": 21524,
+        "total": 104197
+      },
+      "duration_s": 29.9,
+      "api_requests": 5,
+      "tool_uses": 11,
+      "output_tokens_reliable": true
+    },
+    {
+      "stage": "retrospective",
+      "attempt": 1,
+      "status": "done",
+      "agent_id": "a8f03fa97bf48771d",
+      "models": [
+        "claude-sonnet-5-5"
+      ],
+      "tokens": {
+        "input": 6,
+        "output": 4449,
+        "cache_read": 38067,
+        "cache_creation": 26692,
+        "total": 69214
+      },
+      "duration_s": 37.2,
+      "api_requests": 3,
+      "tool_uses": 7,
+      "output_tokens_reliable": true
+    }
+  ],
+  "totals": {
+    "tokens": 1561746,
+    "output_tokens": 40442,
+    "duration_s": 606.5,
+    "api_requests": 66,
+    "tool_uses": 196
+  }
+}

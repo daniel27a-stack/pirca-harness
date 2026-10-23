@@ -1,0 +1,15 @@
+#10 [5/7] COPY bin ./bin
+#10 CACHED
+
+#11 [7/7] WORKDIR /work
+#11 CACHED
+
+#12 exporting to image
+#12 exporting layers done
+#12 exporting manifest sha256:af7956060be3e3a040e024690872bdaea0e5d32fe788341bc0c3762eafc1df97 done
+#12 exporting config sha256:5a58cba44d826bb0d9484c7c3cab8ff2d7d37bfda1254f45a8c43da3f6a16c91 done
+#12 exporting attestation manifest sha256:1e91ee73e64c1099e1668ddee0b357d6c2a99df431f39cd904fee2f04ec6ec82 done
+#12 exporting manifest list sha256:bdef939b6893f25d7da25a5400b365a676ab2047fab9fe41670da36543158175 done
+#12 naming to docker.io/library/java-skeleton:dev done
+#12 unpacking to docker.io/library/java-skeleton:dev done
+#12 DONE 0.0s
