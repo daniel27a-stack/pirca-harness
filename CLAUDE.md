@@ -11,6 +11,7 @@ It never contains product code: it operates on *target repositories* (for exampl
   ba (criteria.md) → architect (implementation.md)
   → prep → coder → qa → docs → push + PR → card to "En revisión"
   after the user merges:  /run-card ARQ-n  → retrospective → record PR → card to "Hecho"
+  small change (chosen by ba):  ba → coder → qa   (coder also does architect, prep and docs)
 ```
 
 - The user states in the card what is wanted and why, in their own words; no section or keyword is

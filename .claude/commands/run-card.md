@@ -42,6 +42,9 @@ Tools: board operations only through the `pirca-board` skill, hosting operations
 ## 2. Stages (subagents, in strict order, in the foreground)
 `ba` → `architect` → `prep` → `coder` → `qa` → `docs`
 
+Short path (`"path": "short"` in `task.json`, chosen by `ba`): `ba` → `coder` → `qa`. `coder` does
+the work of `architect`, `prep` and `docs`.
+
 For each stage:
 1. `python3 scripts/progress.py start $ARGUMENTS <stage>`, then launch the subagent with a short prompt: the card ID, the task folder path, the attempt
    number, and — on a retry — the reason (e.g. "qa failed, see qa-report.md"). For `architect`,
@@ -57,9 +60,11 @@ For each stage:
    If they disagree, or `progress.py check` fails, trust neither: stop and tell the user.
 4. Branch on the status:
    - `done` after `ba` → add `criteria.md` **in Spanish** as a comment on the card with
-     pirca-board, starting with `Criterios de aceptación`, and continue with `architect`. The user
-     does not approve criteria: the BA owns them once it understands the need.
-   - before `architect`: every repo in `task.json` must have a profile `repos/<repo-name>.md`.
+     pirca-board, starting with `Criterios de aceptación`. The user does not approve criteria: the
+     BA owns them once it understands the need. Then read `path` in `task.json`: `full` continues
+     with `architect`; `short` first runs `python3 scripts/progress.py skip $ARGUMENTS architect
+     prep docs --note "short path"` and continues with `coder`.
+   - before `architect` (or before `coder` in the short path): every repo in `task.json` must have a profile `repos/<repo-name>.md`.
      If one is missing, set the card `blocked` and tell the user: profiles are written with the
      user, not by agents.
    - `done` after any other stage → next stage.
