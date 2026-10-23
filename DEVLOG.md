@@ -384,3 +384,20 @@ refused; `check` still passes on ARQ-29's old state. Frontmatter of the agents p
 Not verified: a real run of the short path, and that a medium card still goes through `architect`
 (the check planned with the next medium card, ARQ-15).
 
+## 2026-10-23 — ARQ-54: java-skeleton profile, QA commands and host Java
+
+**What:** `repos/java-skeleton.md` adds `docker inspect` and `docker history` to the QA commands, and
+says the host Java is 21, so a generated Java 25 service is verified by running its container and not
+with `java -jar`.
+
+**Why:** card ARQ-54, from the ARQ-15 retrospective: the BA, QA and docs each noted that those two
+commands were not allowed, and an acceptance criterion asked for `java -jar` on the host, which is
+impossible there.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself.
+
+**Verification:** `allow_qa_commands.py` allows `docker inspect --format x tag` and `docker history
+tag` after the change; before it, it left both for the permission prompt. `java -version` on the host
+prints 21.0.7. `docker run --entrypoint` needed no change: `docker run --rm --entrypoint id <tag>`
+was already allowed by the `docker run` prefix.
+

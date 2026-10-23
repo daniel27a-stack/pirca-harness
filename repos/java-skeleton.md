@@ -18,6 +18,9 @@ from `templates/`. It is not a Java project: the Java and Gradle code lives in t
 `CONTRIBUTING.md`, section "How to verify a change": rebuild the image, generate every affected
 variant in a temporary directory, build each generated project, and run the app when relevant.
 
+The Java on the host is 21. A generated service is compiled for Java 25, so it cannot be started with
+`java -jar` on the host: verify a service by running its container.
+
 ## Skills
 None beyond the preloaded ones.
 
@@ -26,6 +29,8 @@ None beyond the preloaded ones.
 - `docker run`
 - `docker rm`
 - `docker image ls`
+- `docker inspect`
+- `docker history`
 - `mktemp`
 - `id`
 - `cd`
