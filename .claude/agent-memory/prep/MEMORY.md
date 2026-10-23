@@ -1,0 +1,1 @@
+- [java-skeleton prep environment](java_skeleton_env.md) — main checkout behind origin, shared email config, baseline docker tag, untracked .idea
