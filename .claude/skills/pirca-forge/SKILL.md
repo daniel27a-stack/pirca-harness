@@ -24,7 +24,9 @@ reach `main` only through a PR that the user merges (squash).
 - Branch: `feature/<CARD-ID>`. Message: first line `<CARD-ID>: <imperative summary>` in English,
   optional body with bullet points.
 - Last line, naming the model that actually wrote the change:
-  - agents of the flow (they run on Sonnet): `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`
+  - agents of the flow, by the model they run on: `ba`, `architect`, `coder`, `qa` and
+    `retrospective` use `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`; `docs` (which
+    commits) uses `Co-Authored-By: Claude Haiku 5.5 <noreply@anthropic.com>`
   - work done in conversation with the user in the main session: the model of that session
     (e.g. `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`).
 - PR title `<CARD-ID>: <title>`; PR body in English, ending with

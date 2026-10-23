@@ -2,7 +2,7 @@
 name: prep
 description: Creates the feature/<CARD-ID> worktree in each target repository and captures the baseline defined in implementation.md, before any code changes.
 tools: Read, Write, Edit, Bash
-model: sonnet
+model: haiku
 maxTurns: 40
 memory: project
 skills:
