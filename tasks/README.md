@@ -19,7 +19,7 @@ ARQ-50 remain in the repository as history.
 | `coder-summary.md` | coder | What changed, files, commits |
 | `qa-report.md` | qa | Results of the verification plan and one verdict per acceptance criterion |
 | `docs-summary.md` | docs | What was documented |
-| `metrics.json` | orchestrator | Tokens, model and time per stage run |
+| `metrics.json` | `scripts/agent_usage.py --append` | Full measured result of every stage run, and totals |
 | `retrospective.md` | retrospective | What went wrong, cost analysis, proposed improvements |
 | `pr-body.md` | orchestrator | Body of the PR opened with pirca-forge |
 | `aborted/<UTC time>/` | orchestrator | Everything from a run the user restarted from scratch, archived as it was. Its branch is renamed `aborted/<CARD-ID>-<UTC time>` |
@@ -90,12 +90,13 @@ python3 scripts/progress.py check ARQ-12                      # valid values, or
       "status": "done"
     }
   ],
-  "totals": { "tokens": 0, "duration_s": 0, "runs": 0 }
+  "totals": { "tokens": 0, "output_tokens": 0, "duration_s": 0, "runs": 0 }
 }
 ```
 
-Each run's numbers come from `python3 scripts/agent_usage.py <agent-id>`, which reads the
-subagent transcript, so they are measured, not estimated. Output tokens are reliable only for
+Each run is written by `python3 scripts/agent_usage.py <agent-id> --append <metrics.json> --stage
+<stage> --attempt <n> --status <status>`, which reads the subagent transcript and stores its whole
+result, so the numbers are measured, not estimated, and nothing is left out. Output tokens are reliable only for
 Claude Code 2.1.307 or later (`output_tokens_reliable`); the metrics of ARQ-12, ARQ-28 and ARQ-32
 were recorded with 2.1.296 and 2.1.300, under-count output tokens and cannot be recalculated:
 those transcripts never stored the final output.
