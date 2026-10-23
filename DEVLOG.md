@@ -277,3 +277,17 @@ understands the need, and asks if it does not.
 approval remains; `progress.py` runs `ba` → `architect` on a scratch card and refuses the old
 stage; `check` still passes on ARQ-29's old `progress.json`. The real check is the next card's BA.
 
+## 2026-10-23 — ARQ-47: The architect understands the need and follows the conventions
+
+**What:** `architect.md`: the how is the architect's to decide, following the conventions
+(`pirca-conventions`, the repository profile and its `CONTRIBUTING.md`). It asks only when it does
+not understand the need or when its plan needs to skip a convention. It no longer blocks on
+decisions it can make itself (dependency choices, trade-offs).
+
+**Why:** card ARQ-47. In ARQ-29 the architect skipped a written convention
+(`allowEmptyShould(true)` against `archRule.failOnEmptyShould=true`) without asking.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself.
+
+**Verification:** agent frontmatter parses. The real check is the next card's architect.
+
