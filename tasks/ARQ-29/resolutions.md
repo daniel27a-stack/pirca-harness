@@ -16,3 +16,7 @@ Correcciones a los criterios:
 3. AC-2: describir el resultado, no el cómo: "con las cuatro capas activas, una clase de cada sufijo fuera de su paquete de capa hace fallar archTest".
 El resto, aprobado.
 
+## 2026-10-23T00:31Z — user review of the retrospective
+
+No crees ninguna card, ya estan cubiertas en otras, ojo, el architecto agrego esto en un test de arquitecture ->  allowEmptyShould(true) y esto salta una convención, eso no debio pasar
+
