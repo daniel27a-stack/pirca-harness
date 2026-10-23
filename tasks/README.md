@@ -1,7 +1,8 @@
 # tasks/
 
-One folder per card: `tasks/<CARD-ID>/`. Everything an agent needs to resume a card lives here,
-and the folder is committed as the record of how the card was done.
+One folder per card: `tasks/<CARD-ID>/`. Everything an agent needs to resume a card lives here.
+The folders stay local (`.gitignore`) and are never pushed; the folders of cards finished before
+ARQ-50 remain in the repository as history.
 
 | File | Written by | Content |
 |---|---|---|

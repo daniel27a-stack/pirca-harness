@@ -84,9 +84,8 @@ For each stage:
 2. Run the `retrospective` subagent as a stage (`progress.py start`); record its metrics like any stage.
 3. Remove the worktrees: `git -C <repo path> worktree remove <worktree>` and delete the local
    branch if it was merged.
-4. In this repository, on branch `feature/$ARGUMENTS`: commit `tasks/$ARGUMENTS/` as
-   `$ARGUMENTS: Task record`, push it and open a PR titled `$ARGUMENTS: Task record` with pirca-forge.
-   Before committing, `python3 scripts/progress.py card $ARGUMENTS done` (so it is in that commit).
+4. `python3 scripts/progress.py card $ARGUMENTS done`. `tasks/$ARGUMENTS/` stays local: it is
+   never committed or pushed.
 5. Move the card to `hecho` with pirca-board.
 6. Show the user the retrospective's proposals in Spanish and ask which ones to turn into
    `ARQ-n` cards. Do not apply any of them yourself.
