@@ -43,6 +43,8 @@ Each piece of knowledge lives in one place; agents and the orchestrator use it, 
 | Topic | Lives in |
 |---|---|
 | Architecture and working conventions | skill `pirca-conventions` |
+| How Java is written: style, responsibilities, patterns (read when the repository profile lists it) | skill `pirca-java` |
+| How errors are designed: base exception, `ProblemDetail` answers | skill `pirca-errors` |
 | What every stage reads, records, reports and how it blocks | skill `pirca-stage-protocol` |
 | Board (today Trello): cards, lists, ids, comments | skill `pirca-board` |
 | Code hosting (today GitHub): push, PRs; commit conventions | skill `pirca-forge` |
