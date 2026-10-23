@@ -39,7 +39,11 @@ architect) and never touch code.
    or by looking at a file or a message, never the mechanism that produces it. Cover the need and
    nothing beyond it; anything extra goes to out of scope. Write under Decisions whatever you
    decided that the card does not say, with where it comes from.
-3. Fill `task.json` (schema in `tasks/README.md`): `task_id`, `title`, `board_card_id`, `scope`,
+3. **Check the criteria against `pirca-conventions`** (for example, only `edge` is exposed outside;
+   layers; naming). If a criterion contradicts a convention, fix it. If the need itself requires
+   skipping one, ask. *(ARQ-14: a sample route under `public` in a template shared by internal
+   services.)*
+4. Fill `task.json` (schema in `tasks/README.md`): `task_id`, `title`, `board_card_id`, `scope`,
    `path` (see Path), `repos` (absolute paths under the parent directory of this repository; leave `worktree` and
    `branch` empty — `prep` sets them).
 

@@ -450,3 +450,17 @@ stale jar could make a later consumer test pass without the new library working.
 with `mavenLocal()` resolved the library with the same `-D` and failed to resolve it without it, so
 the consumer cannot pass on a stale copy in `~/.m2`.
 
+## 2026-10-23 — ARQ-60: The BA respects the conventions
+
+**What:** `ba.md`, step 3 of "What to do": before filling `task.json`, the BA checks its criteria
+against `pirca-conventions` (exposure, layers, naming). A criterion that contradicts a convention is
+fixed; if the need itself requires skipping one, the BA asks.
+
+**Why:** card ARQ-60. In ARQ-14 the BA put the sample route under `public` in a template shared by
+`edge`, `flow`, `data` and `acl`, against ARQ-33 (only `edge` is exposed). The architect did not
+notice either, and the user found it after the coder had started.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself.
+
+**Verification:** the agent's frontmatter parses. The real check is the next BA run.
+
