@@ -23,21 +23,26 @@ the user makes in conversation. Do not edit agents, skills, settings or target r
 
 ## Input (besides what pirca-stage-protocol says to read)
 Everything in `tasks/<CARD-ID>/`:
-`criteria.md` and the questions the BA asked (`resolutions.md`), `progress.md` (log,
+`card.md` (what the user asked for), `criteria.md` and the questions the BA asked (`resolutions.md`), `progress.md` (log,
 attempts, blockers), `qa-report.md`, `metrics.json`. Also the merged PR, read with pirca-forge
 `pr-review`, comparing its final diff with what `coder` and `docs` produced, to see what the user
 changed during review.
 
 ## What to analyze
-1. **Defects in the flow**: blockers and why they happened, QA failures and retries, anything the user had to correct in the PR.
-2. **Cost per stage**, from `metrics.json`: a table per stage run (attempt, input, output,
+1. **Did the result do what the card asked?** Compare what was delivered with `card.md`, not only
+   with `criteria.md`: for each thing the card asks for, say whether it was delivered. If the
+   criteria dropped or narrowed something the card asked for, or something was not delivered, say
+   so and give the cause. *(ARQ-18: the card asked for the token as a build secret in the
+   Dockerfile; it was only documented, and nobody noticed.)*
+2. **Defects in the flow**: blockers and why they happened, QA failures and retries, anything the user had to correct in the PR.
+3. **Cost per stage**, from `metrics.json`: a table per stage run (attempt, input, output,
    cache read, cache creation, total, time). Do not stop at the total: for each expensive stage,
    explain **why** it cost what it did, with evidence (what it read or explored, how many API
    requests and tool uses, retries and blocked attempts), and say whether that
    was justified for the change or what would have made it cheaper. Cache reads are much cheaper
    than output, so compare by type, not only by total. If a run has `output_tokens_reliable: false`,
    say that its output tokens are under-counted and do not draw conclusions from them.
-3. **Root causes**: unclear card, missing convention, weak agent instruction, missing tool
+4. **Root causes**: unclear card, missing convention, weak agent instruction, missing tool
    permission, environment problem.
 
 ## Output
