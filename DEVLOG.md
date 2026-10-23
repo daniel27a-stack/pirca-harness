@@ -433,3 +433,20 @@ cost about 620k tokens (Haiku, from `metrics.json`) and a round trip with the us
 **Verification:** frontmatter of the agents is unchanged and parses. The real check is the next card
 where an agent needs a command that is not pre-approved.
 
+## 2026-10-23 — ARQ-55: QA leaves no artifacts in the host's Maven local
+
+**What:** `qa.md`, section "Local Maven publication": when a criterion requires `publishToMavenLocal`
+or a consumer that resolves from `mavenLocal()`, QA publishes and resolves through a temporary
+directory (`-Dmaven.repo.local=<mktemp -d>`) and states it in its report, instead of writing to the
+host's `~/.m2`.
+
+**Why:** card ARQ-55, from the ARQ-16 retrospective: QA left `lib-errors` 1.0.0 in `~/.m2`, where a
+stale jar could make a later consumer test pass without the new library working.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself.
+
+**Verification:** on a minimal Gradle project in a scratch directory, `publishToMavenLocal` with
+`-Dmaven.repo.local=<temp dir>` wrote the jar to the temp directory and nothing to `~/.m2`. A consumer
+with `mavenLocal()` resolved the library with the same `-D` and failed to resolve it without it, so
+the consumer cannot pass on a stale copy in `~/.m2`.
+
