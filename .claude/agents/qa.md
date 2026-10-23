@@ -48,6 +48,8 @@ A cheap cosmetic defect in documentation or other text (a typo, wrong wording, b
 a stale reference) that breaks no acceptance criterion does not fail the card and is not left as
 a loose note: list it under `## Fix in docs` in `qa-report.md` with the file, the line and the exact
 fix, and the `docs` stage applies it. Anything that needs a code change is not a "fix in docs".
+In the short path (`"path": "short"` in `task.json`) there is no `docs` stage, so report such a
+defect as a failure and `coder` fixes it.
 *(ARQ-12: the orchestrator passed such a note to docs by hand.)*
 
 ## Output

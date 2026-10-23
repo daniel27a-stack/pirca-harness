@@ -39,11 +39,15 @@ ARQ-50 remain in the repository as history.
       "branch": "feature/ARQ-12"
     }
   ],
-  "scope": "One paragraph in English"
+  "scope": "One paragraph in English",
+  "path": "full"
 }
 ```
 
 Each repo's `name` is also the name of its profile, `repos/<name>.md`.
+
+`path` is `full` or `short`, chosen by `ba`. In the short path, `architect`, `prep` and `docs` are
+skipped and `coder` does their work.
 
 Acceptance criteria live in `criteria.md` only (single source of truth).
 
@@ -55,6 +59,7 @@ UTC; nobody writes them by hand.
 ```
 python3 scripts/progress.py init  ARQ-12                      # orchestrator, at intake
 python3 scripts/progress.py start ARQ-12 coder                # orchestrator, before each attempt
+python3 scripts/progress.py skip  ARQ-12 architect prep docs --note "short path"   # orchestrator
 python3 scripts/progress.py set   ARQ-12 coder done --note "commit dd6cde0, tests green"   # the stage
 python3 scripts/progress.py set   ARQ-12 ba blocked --note "2 questions" --blocker-file tasks/ARQ-12/blocker-ba.md
 python3 scripts/progress.py card  ARQ-12 in-review --pr <url> # orchestrator
@@ -63,7 +68,8 @@ python3 scripts/progress.py check ARQ-12                      # valid values, or
 
 - Card status: `in-progress`, `blocked`, `in-review`, `done`.
 - Stages, in order: `ba`, `architect`, `prep`, `coder`, `qa`, `docs`,
-  `retrospective`. Stage status: `pending`, `in-progress`, `done`, `blocked`, `failed` (qa only).
+  `retrospective`. Stage status: `pending`, `in-progress`, `done`, `blocked`, `failed` (qa only),
+  `skipped` (`architect`, `prep` and `docs` in the short path).
 - A stage set to `blocked` must carry its questions; setting that stage to `done` clears the blocker.
 - Cards recorded before ARQ-40 have only a hand-written `progress.md` (and the stage `refinement`);
   they are history and are not migrated.

@@ -25,6 +25,7 @@ and **how it was verified**.
 | 2026-10-23 | The user no longer approves criteria: the BA understands the need, asks only when it does not, and writes the criteria on its own. Replaces the 2026-10-11 approval gate | The approval rounds were slow and asked the user to confirm what was deducible (ARQ-29: 6 questions, 5 deducible, plus a correction round). The user reviews the result in the PR |
 | 2026-10-23 | Card records (`tasks/<CARD-ID>/`) stay local and are no longer committed. Replaces the 2026-10-11 decision to commit them | What lasts already lives elsewhere (criteria on the card, what/why/verification in the target `DEVLOG.md`, proposals as cards); committing cost one extra PR per card |
 | 2026-10-23 | `prep` and `docs` run on Haiku; the other agents stay on Sonnet. Refines the 2026-10-11 decision "all agents on Sonnet" | Both do mechanical work (worktree and baseline; DEVLOG entry from `qa-report.md`), and Haiku is much cheaper per token. Switch back if their retrospectives show errors caused by the model |
+| 2026-10-23 | Small changes take a short path: `ba` → `coder` → `qa`. `ba` chooses it (`path` in `task.json`) and defaults to the full path when in doubt | Each stage loads its whole context; for a one-line change the stages dominated the cost (ARQ-48: 1.39M tokens, of which `architect`, `prep` and `docs` were about 560k). QA stays separate as the independent check |
 ---
 
 ## 2026-10-11 — ARQ-11: First version of the harness
@@ -356,4 +357,30 @@ design or verify; Haiku is much cheaper.
 `claude-haiku-5-5` (seen in a headless run with `--model haiku`). Not verified: a real card with
 these two stages on Haiku; the retrospective of the next card shows whether they followed the
 stage protocol.
+
+## 2026-10-23 — ARQ-53: Short path for small changes
+
+**What:**
+- `ba` writes `path` (`short` or `full`) in `task.json`: `short` only for a small change (one
+  repository, the card names the files and the edit, no new dependency or convention); otherwise
+  `full`, and `full` when in doubt.
+- `/run-card`: on `short` it skips `architect`, `prep` and `docs` and runs `ba` → `coder` → `qa`.
+  `scripts/progress.py skip` records the skipped stages (new status `skipped`, only for those three
+  and only while pending).
+- `coder.md`, section "Short path": it also does `prep` (worktree, `prep-report.md`, baseline), the
+  how (a short `implementation.md`) and `docs` (DEVLOG entry, README if usage changed). Its
+  DEVLOG verification states only what it ran.
+- `qa.md`: with no `docs` stage, a "fix in docs" defect is reported as a failure and `coder` fixes it.
+- `tasks/README.md` and `CLAUDE.md` describe the path.
+
+**Why:** card ARQ-53. In ARQ-48 the flow cost 1.39M tokens to delete 8 lines; most of it was the
+fixed context each stage loads.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself.
+
+**Verification:** on a scratch card, `skip architect prep docs` marks the three as `skipped`, `check`
+passes and the table shows them; skipping a non-skippable stage, or one that is not pending, is
+refused; `check` still passes on ARQ-29's old state. Frontmatter of the agents parses.
+Not verified: a real run of the short path, and that a medium card still goes through `architect`
+(the check planned with the next medium card, ARQ-15).
 

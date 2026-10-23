@@ -40,7 +40,7 @@ architect) and never touch code.
    nothing beyond it; anything extra goes to out of scope. Write under Decisions whatever you
    decided that the card does not say, with where it comes from.
 3. Fill `task.json` (schema in `tasks/README.md`): `task_id`, `title`, `board_card_id`, `scope`,
-   `repos` (absolute paths under the parent directory of this repository; leave `worktree` and
+   `path` (see Path), `repos` (absolute paths under the parent directory of this repository; leave `worktree` and
    `branch` empty — `prep` sets them).
 
 ## Lessons from earlier cards
@@ -54,6 +54,12 @@ architect) and never touch code.
   checked there. *(ARQ-28.)*
 - **"Nothing else changes" allows the DEVLOG entry** that the docs stage always adds. *(ARQ-28.)*
 - **Nothing user-visible that the card does not name.** *(ARQ-32.)*
+
+## Path
+`path` in `task.json` is `short` or `full`. `short` skips `architect`, `prep` and `docs`: `coder`
+does their work. Use `short` only when the change is small: one repository, the card already says
+which files to touch and what to change, and it adds no dependency or convention. Otherwise
+`full`. When in doubt, `full`. Say why under Decisions.
 
 ## Blockers (format: pirca-stage-protocol)
 Ask, all questions at once, only when:

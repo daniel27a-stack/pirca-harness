@@ -9,6 +9,7 @@ Usage:
   progress.py init     <CARD>
   progress.py start    <CARD> <STAGE>                      # status in-progress, attempts + 1
   progress.py set      <CARD> <STAGE> <done|blocked|failed> --note TEXT [--blocker TEXT | --blocker-file PATH]
+  progress.py skip     <CARD> <STAGE>... --note TEXT       # short path: architect, prep and docs
   progress.py log      <CARD> <STAGE> --note TEXT
   progress.py card     <CARD> <in-progress|blocked|in-review|done> [--pr URL]
   progress.py show     <CARD>                              # print progress.md
@@ -22,7 +23,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 STAGES = ["ba", "architect", "prep", "coder", "qa", "docs", "retrospective"]
-STAGE_STATUS = {"pending", "in-progress", "done", "blocked", "failed"}
+STAGE_STATUS = {"pending", "in-progress", "done", "blocked", "failed", "skipped"}
+SKIPPABLE = {"architect", "prep", "docs"}
 CARD_STATUS = {"in-progress", "blocked", "in-review", "done"}
 
 
@@ -116,6 +118,19 @@ def cmd_set(a):
     save(a.card, state)
 
 
+def cmd_skip(a):
+    state = load(a.card)
+    for name in a.stages:
+        s = stage_of(state, name)
+        if name not in SKIPPABLE:
+            sys.exit(f"progress: only {', '.join(sorted(SKIPPABLE))} can be skipped")
+        if s["status"] != "pending":
+            sys.exit(f"progress: stage {name} is '{s['status']}'; only a pending stage can be skipped")
+        s["status"] = "skipped"
+        s["updated"] = add_log(state, name, f"skipped: {a.note}")
+    save(a.card, state)
+
+
 def cmd_log(a):
     state = load(a.card)
     add_log(state, a.stage, a.note)
@@ -166,6 +181,7 @@ def main():
     sp = sub.add_parser("set"); sp.add_argument("card"); sp.add_argument("stage")
     sp.add_argument("status", choices=["done", "blocked", "failed"]); sp.add_argument("--note", required=True)
     g = sp.add_mutually_exclusive_group(); g.add_argument("--blocker"); g.add_argument("--blocker-file")
+    sp = sub.add_parser("skip"); sp.add_argument("card"); sp.add_argument("stages", nargs="+"); sp.add_argument("--note", required=True)
     sp = sub.add_parser("log"); sp.add_argument("card"); sp.add_argument("stage"); sp.add_argument("--note", required=True)
     sp = sub.add_parser("card"); sp.add_argument("card"); sp.add_argument("status", choices=sorted(CARD_STATUS))
     sp.add_argument("--pr")
