@@ -1,2 +1,4 @@
 .claude/settings.local.json
 .claude/worktrees/
+# Card records stay local (ARQ-50); folders committed before that remain as history
+tasks/*/

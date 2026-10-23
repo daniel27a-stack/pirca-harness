@@ -23,6 +23,7 @@ and **how it was verified**.
 | 2026-10-22 | What agents need to know about a target repository lives in a profile in the harness (`repos/<repo>.md`); a repository without a profile stops before `architect` | The repository keeps only facts (`CONTRIBUTING.md`, ARQ-28); agents must not deduce what a repo is by exploring |
 | 2026-10-22 | A card is understood by its content, never by titles or keywords | Requiring a `Necesidad` section rejected clear cards; asking is the BA's job |
 | 2026-10-23 | The user no longer approves criteria: the BA understands the need, asks only when it does not, and writes the criteria on its own. Replaces the 2026-10-11 approval gate | The approval rounds were slow and asked the user to confirm what was deducible (ARQ-29: 6 questions, 5 deducible, plus a correction round). The user reviews the result in the PR |
+| 2026-10-23 | Card records (`tasks/<CARD-ID>/`) stay local and are no longer committed. Replaces the 2026-10-11 decision to commit them | What lasts already lives elsewhere (criteria on the card, what/why/verification in the target `DEVLOG.md`, proposals as cards); committing cost one extra PR per card |
 ---
 
 ## 2026-10-11 — ARQ-11: First version of the harness
@@ -290,4 +291,18 @@ decisions it can make itself (dependency choices, trade-offs).
 **How:** done in conversation, not by the agentic flow, because it changes the flow itself.
 
 **Verification:** agent frontmatter parses. The real check is the next card's architect.
+
+## 2026-10-23 — ARQ-50: Card records are not pushed
+
+**What:** `tasks/*/` is in `.gitignore`. `/run-card` no longer commits the task record or opens a
+"Task record" PR after the merge: it marks the card done and moves it to `hecho`.
+`tasks/README.md` says the folders stay local. The folders of earlier cards (ARQ-12, 28, 29, 32)
+stay in the repository as history.
+
+**Why:** card ARQ-50: the records are not worth keeping in the remote harness.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself.
+
+**Verification:** `git check-ignore` ignores a new `tasks/ARQ-99/progress.json` and does not ignore
+`tasks/README.md`; files of earlier cards stay tracked.
 
