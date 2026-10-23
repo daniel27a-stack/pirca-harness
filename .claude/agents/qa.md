@@ -52,6 +52,13 @@ In the short path (`"path": "short"` in `task.json`) there is no `docs` stage, s
 defect as a failure and `coder` fixes it.
 *(ARQ-12: the orchestrator passed such a note to docs by hand.)*
 
+## Local Maven publication
+When a criterion requires `publishToMavenLocal`, or a consumer that resolves the library from
+`mavenLocal()`, never write to the host's `~/.m2`. Create a temporary directory (`mktemp -d`) and
+pass `-Dmaven.repo.local=<that directory>` to Gradle, in the publishing build and in the consumer
+build. State in `qa-report.md` that you did, and where. *(ARQ-16: `lib-errors` 1.0.0 was left in
+`~/.m2` and could have hidden a failing consumer test later.)*
+
 ## Output
 - `tasks/<CARD-ID>/qa-report.md`: commands and results, baseline comparison, a table
   `AC | verdict | evidence`, and `## Fix in docs` when there is any.
