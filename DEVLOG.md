@@ -401,3 +401,19 @@ tag` after the change; before it, it left both for the permission prompt. `java 
 prints 21.0.7. `docker run --entrypoint` needed no change: `docker run --rm --entrypoint id <tag>`
 was already allowed by the `docker run` prefix.
 
+## 2026-10-23 — ARQ-57: The retrospective compares the result with the card
+
+**What:** `retrospective.md` reads `card.md` and starts its analysis by checking, thing by thing,
+whether the result delivers what the card asked, not only what `criteria.md` says. Anything dropped,
+narrowed or not delivered is reported with its cause.
+
+**Why:** card ARQ-57. In ARQ-18 the card asked for the token as a build secret in the Dockerfile; the
+BA's criteria had narrowed it to documentation (it read an outdated checkout and believed the
+Dockerfile did not exist), and the retrospective checked only against the criteria, so it did not
+notice. With no criteria approval since ARQ-46, the retrospective is where the BA's reading is
+compared with the card.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself.
+
+**Verification:** frontmatter of the agent parses. The real check is the next retrospective.
+
