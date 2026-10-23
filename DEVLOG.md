@@ -506,3 +506,29 @@ trace id) are the recommended defaults the user did not change.
 `pirca-java` description did not: a colon and a `#` broke the YAML, and the check caught it). The real
 check is the first library written with them (ARQ-21) and the user's review of that PR. The profile
 of `lib-errors` that lists them is ARQ-62.
+
+## 2026-10-23 — ARQ-62: lib-errors repository and profile
+
+**What:** the repository `daniel27a-stack/lib-errors` exists: public, generated with
+`java-skeleton --type lib --name errors` from `origin/main` (334b5a9, with ARQ-14), one initial commit
+pushed by the user to `main` (the push hook blocks the agents' own pushes to `main`). Only squash merge
+is allowed and branches are deleted on merge. The `protect-main` ruleset is the same as in
+`java-skeleton`: no deletion, no force push, linear history, pull request with squash and no bypass
+actors; it was applied after the first push, because it would have blocked it. The profile
+`repos/lib-errors.md` lists the skills `pirca-java` and `pirca-errors`, what to edit and not to touch,
+and the QA commands. It says the repository has no `CONTRIBUTING.md` or `DEVLOG.md` on purpose
+(ARQ-63).
+
+**Why:** card ARQ-62. Without the repository and its profile the flow cannot work on ARQ-21: the card
+stops before `architect` when the profile is missing.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself and
+creates a repository.
+
+**Verification:** the generated project builds (`./gradlew build`, BUILD SUCCESSFUL, before the first
+commit). The ruleset of both repositories lists the same four rule types. The QA hook reads the new
+profile: it allows `./gradlew` and `jar tf` and leaves `rm` for the permission prompt. The hook joins
+the QA commands of every profile in `repos/`, not only those of the card's repository, so
+`docker build` (listed by `java-skeleton`) is also allowed here. Not verified: that the ruleset rejects a direct push; its rules are the same as in
+`java-skeleton`'s.
+
