@@ -1,0 +1,13 @@
+{
+  "task_id": "ARQ-29",
+  "title": "java-skeleton: inverse naming rule in archTest",
+  "board_card_id": "6acc3751e266ae378bca72df",
+  "scope": "Add inverse naming rules to ArchitectureTest in the spring-gradle and java-library templates, update their generated READMEs",
+  "repos": [
+    {
+      "path": "/home/daniel-jofre/Documentos/Desarrollo/java-skeleton",
+      "worktree": "/home/daniel-jofre/Documentos/Desarrollo/java-skeleton-ARQ-29",
+      "branch": "feature/ARQ-29"
+    }
+  ]
+}
