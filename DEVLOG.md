@@ -324,3 +324,19 @@ output tokens were reliable.
 totals matching the sum of the runs; `--append` without `--stage` is refused; without `--append`
 the output is unchanged.
 
+## 2026-10-23 — ARQ-51: forge.py opens the PR on the first try
+
+**What:** `forge.py pr-create` turns `--body-file` into an absolute path, resolved from where the
+script is called, before running `gh` inside the target repository.
+
+**Why:** card ARQ-51. In ARQ-48 the first `pr-create` failed: `gh` runs with the target repository
+as its working directory, so `tasks/ARQ-48/pr-body.md` (relative to the harness) was not found.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself.
+
+**Verification:** with a fake `gh` first in `PATH` that logs its working directory and whether the
+body file exists, `pr-create ../.. --body-file pr-body.md` called from `tasks/ZZ-51/` runs `gh` in
+the repository and passes the absolute path of the file, which exists. Control: the previous
+version passes `pr-body.md` unchanged, which does not exist from the repository's directory. The
+real check is the next card's PR.
+

@@ -11,6 +11,7 @@ Usage:
 """
 import argparse
 import json
+import os
 import subprocess
 import sys
 
@@ -44,7 +45,7 @@ def main():
         if branch in PROTECTED:
             sys.exit("forge: the worktree is on main/master; a PR needs a feature branch")
         print(run(["gh", "pr", "create", "--base", "main", "--head", branch,
-                   "--title", a.title, "--body-file", a.body_file], cwd=a.repo).strip().splitlines()[-1])
+                   "--title", a.title, "--body-file", os.path.abspath(a.body_file)], cwd=a.repo).strip().splitlines()[-1])
     elif a.cmd == "pr-state":
         d = json.loads(run(["gh", "pr", "view", a.url, "--json", "state,mergedAt"]))
         print(json.dumps({"state": d["state"].lower(), "merged": d["state"] == "MERGED", "merged_at": d["mergedAt"]}))
