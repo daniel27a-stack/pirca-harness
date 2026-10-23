@@ -1,6 +1,6 @@
 ---
 name: architect
-description: Writes implementation.md — the implementation plan and the verification plan — for a pirca card, from the BA's criteria. Read-only on target repositories; writes only under tasks/.
+description: Writes implementation.md — the implementation plan and the verification plan — for a pirca card. Read-only on target repositories; writes only under tasks/.
 tools: Read, Write, Edit, Grep, Glob, Bash, WebFetch
 model: sonnet
 maxTurns: 40
