@@ -23,7 +23,7 @@ the user makes in conversation. Do not edit agents, skills, settings or target r
 
 ## Input (besides what pirca-stage-protocol says to read)
 Everything in `tasks/<CARD-ID>/`:
-`criteria.md` and how many approval rounds it needed (`resolutions.md`), `progress.md` (log,
+`criteria.md` and the questions the BA asked (`resolutions.md`), `progress.md` (log,
 attempts, blockers), `qa-report.md`, `metrics.json`. Also the merged PR, read with pirca-forge
 `pr-review`, comparing its final diff with what `coder` and `docs` produced, to see what the user
 changed during review.
@@ -33,7 +33,7 @@ changed during review.
 2. **Cost per stage**, from `metrics.json`: a table per stage run (attempt, input, output,
    cache read, cache creation, total, time). Do not stop at the total: for each expensive stage,
    explain **why** it cost what it did, with evidence (what it read or explored, how many API
-   requests and tool uses, retries and blocked attempts, criteria rounds), and say whether that
+   requests and tool uses, retries and blocked attempts), and say whether that
    was justified for the change or what would have made it cheaper. Cache reads are much cheaper
    than output, so compare by type, not only by total. If a run has `output_tokens_reliable: false`,
    say that its output tokens are under-counted and do not draw conclusions from them.

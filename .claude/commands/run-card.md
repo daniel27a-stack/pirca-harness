@@ -1,5 +1,5 @@
 ---
-description: Run (or resume) a pirca card end to end — ba (criteria for user approval), architect, prep, coder, qa, docs, PR; after merge, retrospective.
+description: Run (or resume) a pirca card end to end — ba, architect, prep, coder, qa, docs, PR; after merge, retrospective.
 argument-hint: <CARD-ID, e.g. ARQ-12>
 ---
 
@@ -40,7 +40,7 @@ Tools: board operations only through the `pirca-board` skill, hosting operations
 4. Move the card to `en-curso` with pirca-board.
 
 ## 2. Stages (subagents, in strict order, in the foreground)
-`ba` → **criteria approval (user)** → `architect` → `prep` → `coder` → `qa` → `docs`
+`ba` → `architect` → `prep` → `coder` → `qa` → `docs`
 
 For each stage:
 1. `python3 scripts/progress.py start $ARGUMENTS <stage>`, then launch the subagent with a short prompt: the card ID, the task folder path, the attempt
@@ -55,8 +55,9 @@ For each stage:
 3. Read the agent's last line (`STATUS: ...`) **and** `python3 scripts/progress.py show $ARGUMENTS`.
    If they disagree, or `progress.py check` fails, trust neither: stop and tell the user.
 4. Branch on the status:
-   - `done` after `ba` → **always** run the criteria approval gate (below); only when the
-     user approves, continue with `architect`.
+   - `done` after `ba` → add `criteria.md` **in Spanish** as a comment on the card with
+     pirca-board, starting with `Criterios de aceptación`, and continue with `architect`. The user
+     does not approve criteria: the BA owns them once it understands the need.
    - before `architect`: every repo in `task.json` must have a profile `repos/<repo-name>.md`.
      If one is missing, set the card `blocked` and tell the user: profiles are written with the
      user, not by agents.
@@ -67,16 +68,6 @@ For each stage:
    - `failed` (qa only) → if `coder` has run only once, re-run `coder` (attempt 2) pointing to
      `qa-report.md`, then `qa` again. If qa fails a second time, set Status `blocked` and stop
      with the failure summary for the user (`python3 scripts/progress.py card $ARGUMENTS blocked`).
-
-### Criteria approval gate
-1. Present `criteria.md` to the user **in Spanish**: need, scope, each AC, out of scope and the
-   assumptions the BA made. Ask: approve as is, or correct.
-2. Corrections → append them verbatim to `resolutions.md` under a heading with the current UTC
-   time, re-run `ba` (next attempt) and present the new criteria. Repeat until approved.
-3. Approved → `python3 scripts/progress.py set $ARGUMENTS criteria-approval done --note "approved
-   on round <n>"`, and add the approved criteria **in Spanish** as a comment on the card with
-   pirca-board, starting with `Criterios de aceptación (aprobados)`. Then continue with `architect`.
-4. Never skip this gate and never approve on the user's behalf.
 
 ## 3. Delivery (you)
 1. For each worktree in `task.json`, push `feature/$ARGUMENTS` with pirca-forge `push`.

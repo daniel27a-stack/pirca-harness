@@ -21,7 +21,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-STAGES = ["ba", "criteria-approval", "architect", "prep", "coder", "qa", "docs", "retrospective"]
+STAGES = ["ba", "architect", "prep", "coder", "qa", "docs", "retrospective"]
 STAGE_STATUS = {"pending", "in-progress", "done", "blocked", "failed"}
 CARD_STATUS = {"in-progress", "blocked", "in-review", "done"}
 

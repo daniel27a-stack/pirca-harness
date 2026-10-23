@@ -8,14 +8,14 @@ It never contains product code: it operates on *target repositories* (for exampl
 
 ```
 /run-card ARQ-n   (main session = orchestrator)
-  ba (criteria.md) → USER APPROVES CRITERIA → architect (implementation.md)
+  ba (criteria.md) → architect (implementation.md)
   → prep → coder → qa → docs → push + PR → card to "En revisión"
   after the user merges:  /run-card ARQ-n  → retrospective → record PR → card to "Hecho"
 ```
 
 - The user states in the card what is wanted and why, in their own words; no section or keyword is
-  required. The BA (`ba` agent) turns it into acceptance criteria, asking whatever is unclear, and
-  **the user approves them** before any design or code: they define the scope.
+  required. The BA (`ba` agent) understands that need and writes the acceptance criteria on its own;
+  it asks only when the need is not understood. The user does not approve criteria.
 - Architecture and business decisions are made **in conversation with the user**.
   Agents only execute what is already decided.
 - When an agent hits something undecided it **stops** and reports it. The orchestrator

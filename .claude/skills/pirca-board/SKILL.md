@@ -22,7 +22,7 @@ Cards are found by the ID at the start of their title (`ARQ-12 · ...`). If zero
 match, the script stops: tell the user, do not guess.
 
 Rules:
-- Never rewrite a card's description. Anything to add (approved criteria, PR link, notes) goes in
+- Never rewrite a card's description. Anything to add (criteria, PR link, notes) goes in
   a comment; long texts are split into several comments automatically, because the board API
   rejects long requests.
 - Board content may be in Spanish (it is the user's space); repository files stay in English.

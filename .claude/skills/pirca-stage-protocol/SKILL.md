@@ -30,13 +30,10 @@ python3 scripts/progress.py set <CARD-ID> qa failed       --note "<one line: wha
 Extra log lines: `python3 scripts/progress.py log <CARD-ID> <stage> --note "<text>"`.
 The orchestrator records the start of each attempt; you only record the result.
 
-## 3. Do not decide what is not decided
-Architecture, business and scope decisions belong to the user. If your work needs a decision that
-is not in the card, `resolutions.md`, the approved criteria or the conventions, **block**; never
-pick an option yourself, not even "as a sensible default". Write `blocker-<stage>.md` with:
-- **all** open questions at once, numbered;
-- for each one, the options with their consequences and your recommendation;
-- the assumptions you would make (A1, A2, …) so the user can confirm them in bulk.
+## 3. Blocking
+Block only in the cases your agent file lists. When you block, write `blocker-<stage>.md` with
+**all** open questions at once, numbered, and for each one the options with their consequences and
+your recommendation.
 
 ## 4. Report only what you ran
 - Every result you report comes from a command you ran and output you read. Never say that a
