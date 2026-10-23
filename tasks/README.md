@@ -11,7 +11,7 @@ and the folder is committed as the record of how the card was done.
 | `progress.md` | `scripts/progress.py` only | Generated from `progress.json` for people to read. Never edited by hand |
 | `blocker-<stage>.md` | the blocked stage | All open questions, with options, recommendation and assumptions |
 | `resolutions.md` | orchestrator | Answers from the user to blockers, in order |
-| `criteria.md` | ba | Need, scope, acceptance criteria (AC-n), out of scope, assumptions. **Approved by the user** before architect runs |
+| `criteria.md` | ba | Need, scope, acceptance criteria (AC-n), out of scope, decisions. Written by the BA on its own; also posted on the card |
 | `implementation.md` | architect | Approach, files, ordered steps per AC, **verification plan** (baseline + after) |
 | `prep-report.md` | prep | Worktree, branch, baseline results |
 | `baseline/` | prep | Raw baseline outputs (dependency trees, test results) |
@@ -61,7 +61,7 @@ python3 scripts/progress.py check ARQ-12                      # valid values, or
 ```
 
 - Card status: `in-progress`, `blocked`, `in-review`, `done`.
-- Stages, in order: `ba`, `criteria-approval`, `architect`, `prep`, `coder`, `qa`, `docs`,
+- Stages, in order: `ba`, `architect`, `prep`, `coder`, `qa`, `docs`,
   `retrospective`. Stage status: `pending`, `in-progress`, `done`, `blocked`, `failed` (qa only).
 - A stage set to `blocked` must carry its questions; setting that stage to `done` clears the blocker.
 - Cards recorded before ARQ-40 have only a hand-written `progress.md` (and the stage `refinement`);

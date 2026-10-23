@@ -22,6 +22,7 @@ and **how it was verified**.
 
 | 2026-10-22 | What agents need to know about a target repository lives in a profile in the harness (`repos/<repo>.md`); a repository without a profile stops before `architect` | The repository keeps only facts (`CONTRIBUTING.md`, ARQ-28); agents must not deduce what a repo is by exploring |
 | 2026-10-22 | A card is understood by its content, never by titles or keywords | Requiring a `Necesidad` section rejected clear cards; asking is the BA's job |
+| 2026-10-23 | The user no longer approves criteria: the BA understands the need, asks only when it does not, and writes the criteria on its own. Replaces the 2026-10-11 approval gate | The approval rounds were slow and asked the user to confirm what was deducible (ARQ-29: 6 questions, 5 deducible, plus a correction round). The user reviews the result in the PR |
 ---
 
 ## 2026-10-11 — ARQ-11: First version of the harness
@@ -250,3 +251,29 @@ Still pending from ARQ-11 (AC-7): the automatic qa → coder retry, the first ti
   runs with one subagent each).
 - `agent_usage.py` on an ARQ-32 transcript: `2.1.300`, `output_tokens_reliable: false`, warning;
   on a 2.1.307 probe transcript: `true`, no warning.
+
+## 2026-10-23 — ARQ-46: The BA understands the need; no criteria approval
+
+**What:**
+- `ba.md` rewritten around one job: understand what the card wants and why. Once it does, the BA
+  writes the criteria on its own; it asks only when it does not understand the need or cannot
+  identify the target repository. The rules that made it ask (keep/remove each element, name and
+  audience, order between tasks, listing changes between rounds) became decisions it states in a
+  new `## Decisions` section of `criteria.md`.
+- The criteria approval gate is gone: `/run-card` goes from `ba` to `architect`, posting the
+  criteria on the card as a comment. The stage `criteria-approval` is removed from
+  `scripts/progress.py` (old `progress.json` files still pass `check`).
+- `pirca-stage-protocol`: a stage blocks only in the cases its agent file lists; the rule "never
+  pick an option yourself, not even as a sensible default" is removed.
+- References to approved criteria updated in `CLAUDE.md`, `tasks/README.md`, `architect.md`,
+  `coder.md`, `retrospective.md` and `pirca-board`.
+
+**Why:** card ARQ-46: the BA does not have the user validate criteria; it only makes sure it
+understands the need, and asks if it does not.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself.
+
+**Verification:** frontmatter of agents, skills and `/run-card` parses; no reference to criteria
+approval remains; `progress.py` runs `ba` → `architect` on a scratch card and refuses the old
+stage; `check` still passes on ARQ-29's old `progress.json`. The real check is the next card's BA.
+
