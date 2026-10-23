@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Summarize a subagent run from its Claude Code transcript.
 
-Usage: agent_usage.py <agent-id>
+Usage: agent_usage.py <agent-id> [--append <metrics.json> --stage <stage> --attempt <n> --status <status>]
 
 Finds ~/.claude/projects/*/*/subagents/agent-<agent-id>.jsonl and prints JSON with the
 model(s), token usage (deduplicated per API request), start/end timestamps and duration.
@@ -11,6 +11,7 @@ the last entry of each request matches the `api_request` telemetry event exactly
 without thinking). Transcripts from 2.1.300 and earlier keep the usage from the start of the
 response, so their output tokens are under-counted; the result says so in `warning`.
 """
+import argparse
 import glob
 import json
 import os
@@ -31,11 +32,33 @@ def version_tuple(value: str) -> tuple[int, ...]:
         return ()
 
 
+def append(path: str, run: dict) -> None:
+    """Add the full result as a run of metrics.json and recompute the totals."""
+    metrics = json.load(open(path)) if os.path.exists(path) else {"runs": []}
+    metrics.setdefault("runs", []).append(run)
+    runs = metrics["runs"]
+    metrics["totals"] = {
+        "tokens": sum(r.get("tokens", {}).get("total", 0) for r in runs),
+        "output_tokens": sum(r.get("tokens", {}).get("output", 0) for r in runs),
+        "duration_s": round(sum(r.get("duration_s") or 0 for r in runs), 1),
+        "runs": len(runs),
+    }
+    with open(path, "w") as f:
+        json.dump(metrics, f, indent=2)
+        f.write("\n")
+
+
 def main() -> int:
-    if len(sys.argv) != 2:
-        print(__doc__, file=sys.stderr)
-        return 1
-    agent_id = sys.argv[1].removeprefix("agent-")
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("agent_id")
+    parser.add_argument("--append", metavar="METRICS_JSON", help="also add the result to this metrics.json")
+    parser.add_argument("--stage")
+    parser.add_argument("--attempt", type=int)
+    parser.add_argument("--status")
+    args = parser.parse_args()
+    if args.append and not (args.stage and args.attempt and args.status):
+        parser.error("--append needs --stage, --attempt and --status")
+    agent_id = args.agent_id.removeprefix("agent-")
     pattern = os.path.expanduser(f"~/.claude/projects/*/*/subagents/agent-{agent_id}.jsonl")
     files = glob.glob(pattern)
     if not files:
@@ -90,6 +113,8 @@ def main() -> int:
         result["warning"] = ("output tokens under-counted: transcript written by Claude Code "
                              f"{version}, reliable only since 2.1.307")
     print(json.dumps(result, indent=2))
+    if args.append:
+        append(args.append, {"stage": args.stage, "attempt": args.attempt, "status": args.status, **result})
     return 0
 
 

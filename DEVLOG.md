@@ -306,3 +306,21 @@ stay in the repository as history.
 **Verification:** `git check-ignore` ignores a new `tasks/ARQ-99/progress.json` and does not ignore
 `tasks/README.md`; files of earlier cards stay tracked.
 
+## 2026-10-23 — ARQ-49: The orchestrator stores the full metrics
+
+**What:** `scripts/agent_usage.py --append <metrics.json> --stage --attempt --status` adds the
+script's whole result as a run (API requests, tool uses, Claude Code version,
+`output_tokens_reliable`, tokens by type, times) and recomputes the totals. `/run-card` records
+metrics only through it and never writes `metrics.json` by hand. `tasks/README.md` updated.
+
+**Why:** card ARQ-49. In ARQ-29 the orchestrator copied only part of the result into
+`metrics.json`, so the retrospective had no request or tool-use counts and could not tell whether
+output tokens were reliable.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself.
+
+**Verification:** on a scratch `metrics.json`, two `--append` calls with real transcripts (one
+2.1.300, one 2.1.307) stored every field of each result, `stage`, `attempt` and `status`, and
+totals matching the sum of the runs; `--append` without `--stage` is refused; without `--append`
+the output is unchanged.
+

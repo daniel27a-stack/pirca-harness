@@ -49,9 +49,10 @@ For each stage:
    Do not paste file contents; the agent reads them.
    Launch it **in the foreground**, never in the background, and wait for its result: nothing else
    runs while a stage is running.
-2. When it returns, record metrics: run `python3 scripts/agent_usage.py <agent-id>` and append
-   the result to `metrics.json` `runs` with `stage`, `attempt` and `status`; update `totals`.
-   If the transcript is not found, record what the Agent result reported and note it.
+2. When it returns, record metrics with
+   `python3 scripts/agent_usage.py <agent-id> --append tasks/$ARGUMENTS/metrics.json --stage <stage> --attempt <n> --status <status>`:
+   the script writes the full result and the totals. Never write `metrics.json` by hand.
+   If the transcript is not found, tell the user.
 3. Read the agent's last line (`STATUS: ...`) **and** `python3 scripts/progress.py show $ARGUMENTS`.
    If they disagree, or `progress.py check` fails, trust neither: stop and tell the user.
 4. Branch on the status:
