@@ -464,3 +464,20 @@ notice either, and the user found it after the coder had started.
 
 **Verification:** the agent's frontmatter parses. The real check is the next BA run.
 
+## 2026-10-23 — ARQ-59: The orchestrator decides nothing and edits nothing
+
+**What:** `run-card.md`, "Rules for you": the orchestrator calls the agents and hands over
+information as it is. In `resolutions.md` it records only what the user said, verbatim; when the
+user delegates ("the rest is yours") it writes nothing for those points and re-runs the stage so the
+agent decides and records its own decisions.
+
+**Why:** card ARQ-59. In ARQ-14 the user answered one question and delegated the rest to the BA; the
+orchestrator wrote "decisions 2 to 5" in `resolutions.md` as the user's and chose the BA's
+recommended options. One of them, the sample endpoint under `public`, contradicted ARQ-33 and had to
+be withdrawn after the coder had started.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself.
+
+**Verification:** the command's frontmatter parses. The real check is the next time a user delegates
+the answer to a question.
+

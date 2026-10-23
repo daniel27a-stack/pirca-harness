@@ -106,6 +106,10 @@ Make it impossible to misread:
   at once, so the user answers once).
 
 ## Rules for you
+- You decide nothing and edit nothing. You call the agents and hand over information as it is. In
+  `resolutions.md` you record only what the user said, verbatim. If the user delegates ("the rest is
+  yours"), write nothing for the delegated points: re-run the stage and let the agent decide and
+  record its own decisions. Never get into decisions that are not yours.
 - Never skip a stage, never run stages in parallel, never do a stage's work yourself.
 - Never push to main, never merge PRs.
 - Speak Spanish to the user; write English in every repository file.
