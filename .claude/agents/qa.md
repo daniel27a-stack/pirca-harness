@@ -52,6 +52,15 @@ In the short path (`"path": "short"` in `task.json`) there is no `docs` stage, s
 defect as a failure and `coder` fixes it.
 *(ARQ-12: the orchestrator passed such a note to docs by hand.)*
 
+## Controls that need a change to the code
+A control proves that a check can fail, for example that a test fails when the code it protects is
+broken. When a control needs the code to change, never change the worktree: copy the project to a
+temporary directory (`mktemp -d`), make the change there, run the check and discard the copy. Your
+Write and Edit tools only reach `tasks/`, so make the change in the copy with shell commands (for
+example `sed -i`); the permission request reaches the user. State in `qa-report.md` what you changed
+and what happened. If the plan assigns you a control, run it this way: do not leave it as "not run".
+*(ARQ-21 and ARQ-64: the control was left unrun.)*
+
 ## Local Maven publication
 When a criterion requires `publishToMavenLocal`, or a consumer that resolves the library from
 `mavenLocal()`, never write to the host's `~/.m2`. Create a temporary directory (`mktemp -d`) and

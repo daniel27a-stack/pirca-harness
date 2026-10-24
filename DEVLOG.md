@@ -601,3 +601,21 @@ next cards on the library (ARQ-67) read it.
 constructor `(String code, String message)` and fixes its status. The frontmatter of every skill,
 agent and command parses.
 
+## 2026-10-24 — ARQ-68: QA runs its controls on a temporary copy
+
+**What:** `qa.md`, section "Controls that need a change to the code": when a control needs the code to
+change (to prove that a test can fail), QA copies the project to a temporary directory, makes the
+change there with shell commands, runs the check and discards the copy. It states in its report what
+it changed and what happened, and does not leave an assigned control as "not run".
+
+**Why:** card ARQ-68. In ARQ-21 and ARQ-64 the control planned by the architect was left unrun, because
+QA read "you must not modify the worktree" as "you cannot run controls that edit". It can: in ARQ-18
+and ARQ-56 it did them on copies. The tools matter: QA's Write and Edit are limited to `tasks/`, so the
+copy has to be changed with the shell, which is what the instruction now says.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself.
+
+**Verification:** `guard_write_scope.py` blocks a Write to `/tmp/copia/Foo.java` and allows one under
+`tasks/`, which confirms why the copy must be edited with the shell. The frontmatter of every skill,
+agent and command parses. The real check is the next card with a control (ARQ-67).
+
