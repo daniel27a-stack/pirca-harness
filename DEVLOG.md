@@ -553,3 +553,19 @@ could have created a `DEVLOG.md` there.
 repository. The real check is the first card on `lib-errors` (ARQ-21): its docs stage must not
 create a `DEVLOG.md`.
 
+## 2026-10-24 — ARQ-65: pirca-errors records what ARQ-21 decided
+
+**What:** `pirca-errors` now says what `lib-errors` implemented and the skill did not: the `type` of
+the answer is `urn:pirca:error:<code>`, the `title` is the standard reason phrase of the status, the
+`detail` is the exception's message, and an unexpected error answers with `type`
+`urn:pirca:error:internal` and `code` `INTERNAL_ERROR`.
+
+**Why:** card ARQ-65. The architect of ARQ-21 chose those values and they lived only in the code; the
+next services and libraries need to follow the same ones.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself. The
+values were read from the merged code of `lib-errors` (`ErrorsControllerAdvice`), not assumed.
+
+**Verification:** the frontmatter of every skill, agent and command parses. Each value was checked
+against the code of `lib-errors` on `main`.
+
