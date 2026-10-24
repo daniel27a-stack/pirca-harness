@@ -12,8 +12,10 @@ it. How the Java code is written in general is in `pirca-java`.
 - One base exception with three fields: `code` (stable, for machines, an uppercase string with
   underscores such as `EXPENSE_NOT_FOUND`, defined by each service), `message` (human) and `status`
   (HTTP). The library carries only the base; a service extends it for its domain errors.
-- A `@RestControllerAdvice` answers with `ProblemDetail` (RFC 9457): `type`, `title`, `status`,
-  `detail`, and the extension `code`.
+- A `@RestControllerAdvice` answers with `ProblemDetail` (RFC 9457): `type` is
+  `urn:pirca:error:<code>`, `title` is the standard reason phrase of the status, `status`, `detail`
+  is the exception's message, and the extension `code`.
 - An unexpected exception, one that is not the base, is also answered as a `ProblemDetail` with
-  status 500 and a generic `detail`: no stack trace and no internal message leaves the service.
+  status 500, `type` `urn:pirca:error:internal`, `code` `INTERNAL_ERROR` and a generic `detail`: no
+  stack trace and no internal message leaves the service.
 - A trace or correlation id in the response is left to `lib-logging`; not here.
