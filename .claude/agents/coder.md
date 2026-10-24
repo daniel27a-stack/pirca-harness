@@ -32,13 +32,14 @@ When `task.json` has `"path": "short"` there is no `architect`, `prep` or `docs`
 their work, in this order:
 1. **Worktree and baseline** (what `.claude/agents/prep.md` does): fetch, create the worktree and
    branch, set the commit email, write `worktree` and `branch` into `task.json`, and write
-   `prep-report.md`. The baseline is what the repository profile and its `CONTRIBUTING.md` say
+   `prep-report.md`. The baseline is what the repository profile and its `CONTRIBUTING.md` (if it has one) say
    verifies a change, run before changing anything and saved under `tasks/<CARD-ID>/baseline/`.
 2. **The how**: write `implementation.md` in the architect's format, as short as the change allows
    (approach, files, steps, and the verification plan with one piece of evidence per AC). Follow
    the conventions; if the change needs to skip one, block.
 3. Implement, test and commit as above.
-4. **DEVLOG** (what `.claude/agents/docs.md` does): add the entry in the repository's format, and
+4. **DEVLOG** (what `.claude/agents/docs.md` does): if the repository has a `DEVLOG.md`, add the
+   entry in its format, and
    the README only if usage, commands or flags changed. Its verification states only what you ran.
    Name every file the commit changes in its message.
 

@@ -61,11 +61,13 @@ description: Architecture and working conventions of pirca. Preloaded into every
 - Java 25 and Spring Boot 4 by default. `java-skeleton` is the canonical list of versions.
 
 ## Where things live (ARQ-28)
-- Target repositories carry only **facts about the repository**, in `CONTRIBUTING.md`: what it is,
-  how it works, how a change is verified. Read it before working on a repository.
+- Target repositories carry only **facts about the repository**. `java-skeleton` keeps them in
+  `CONTRIBUTING.md` (what it is, how it works, how a change is verified): read it before working on
+  a repository that has one. Artifacts (services and libraries) have only a `README.md`, and the body
+  of each PR is their record (ARQ-63).
 - Rules for agents live in pirca-harness (this skill, agents, orchestrator), never in target repos.
-- Every change adds an entry to the repository's `DEVLOG.md`, following its format.
-  `README.md` changes only when usage, commands or flags change.
+- A repository that has a `DEVLOG.md` (`java-skeleton`) gets an entry for every change, following its
+  format. `README.md` changes only when usage, commands or flags change.
 
 ## Git and delivery
 - `feature/<CARD-ID>` → PR → `main` (squash) → tag `vX.Y.Z`. Merging certifies, a tag publishes.

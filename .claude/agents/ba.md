@@ -56,7 +56,8 @@ architect) and never touch code.
   audience and where it lives, following the conventions. *(ARQ-28.)*
 - **Examples come from the source.** Every example in a criterion cites the file it comes from,
   checked there. *(ARQ-28.)*
-- **"Nothing else changes" allows the DEVLOG entry** that the docs stage always adds. *(ARQ-28.)*
+- **"Nothing else changes" allows the DEVLOG entry** that the docs stage adds when the repository has
+  a `DEVLOG.md`. *(ARQ-28.)*
 - **Nothing user-visible that the card does not name.** *(ARQ-32.)*
 
 ## Path

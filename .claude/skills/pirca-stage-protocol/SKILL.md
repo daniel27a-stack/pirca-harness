@@ -14,8 +14,8 @@ stage does; this protocol says **how** every stage works.
 - `tasks/<CARD-ID>/resolutions.md`, if it exists — the user's answers. They override the card and
   any earlier output, and must be applied exactly.
 - `tasks/<CARD-ID>/task.json` and the files your agent file lists as input.
-- Before reading or changing a target repository, read its `CONTRIBUTING.md`: it states what the
-  repository is, how it works and how a change is verified. Work only in the worktree paths from
+- Before reading or changing a target repository, read its `CONTRIBUTING.md` if it has one: it states
+  what the repository is, how it works and how a change is verified. Work only in the worktree paths from
   `task.json`; the main checkout of a repository is never touched.
 
 ## 2. Record state only through the script
