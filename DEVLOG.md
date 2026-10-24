@@ -569,3 +569,19 @@ values were read from the merged code of `lib-errors` (`ErrorsControllerAdvice`)
 **Verification:** the frontmatter of every skill, agent and command parses. Each value was checked
 against the code of `lib-errors` on `main`.
 
+## 2026-10-24 — ARQ-66: The PR body includes the coder's deviations
+
+**What:** `coder.md` asks for a `## Deviations` section in `coder-summary.md`: every place where the
+coder did something different from `implementation.md`, and why, or "None". `run-card.md` copies that
+section as it is into the PR body when it says anything but "None".
+
+**Why:** card ARQ-66. Since ARQ-50 the task records stay local and since ARQ-63 the PR body is the only
+record of an artifact. In ARQ-21 the coder deviated from the plan (the integration test filters the
+`.imports` entries by the prefix `cl.pirca.`, because the classpath also returns Spring Boot's own) and
+that stayed only in its local summary: whoever reviewed the PR did not see it.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself.
+
+**Verification:** the frontmatter of every skill, agent and command parses. The real check is the next
+card where the coder deviates from the plan: the PR body must show it.
+
