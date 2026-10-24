@@ -585,3 +585,19 @@ that stayed only in its local summary: whoever reviewed the PR did not see it.
 **Verification:** the frontmatter of every skill, agent and command parses. The real check is the next
 card where the coder deviates from the plan: the PR body must show it.
 
+## 2026-10-24 — ARQ-69: pirca-errors lists the common HTTP exceptions
+
+**What:** `pirca-errors` no longer says that the library carries only the base. It says that four
+ready-made exceptions extend it (`BadRequestException` 400, `ForbiddenException` 403,
+`NotFoundException` 404, `ConflictException` 409), that a service uses them directly with its own code
+and message, and that it extends the base only for a case they do not cover.
+
+**Why:** card ARQ-69. ARQ-64 added those exceptions to `lib-errors` and left the skill stale, and the
+next cards on the library (ARQ-67) read it.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself.
+
+**Verification:** the four classes were read on `lib-errors` `main`: each has a single public
+constructor `(String code, String message)` and fixes its status. The frontmatter of every skill,
+agent and command parses.
+
