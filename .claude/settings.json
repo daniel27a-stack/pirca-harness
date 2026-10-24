@@ -25,7 +25,8 @@
       "WebFetch(domain:plugins.gradle.org)",
       "Bash(python3 scripts/progress.py:*)",
       "Bash(python3 .claude/skills/pirca-board/scripts/board.py:*)",
-      "Bash(python3 .claude/skills/pirca-forge/scripts/forge.py:*)"
+      "Bash(python3 .claude/skills/pirca-forge/scripts/forge.py:*)",
+      "Bash(python3 scripts/card_tmp.py:*)"
     ]
   },
   "hooks": {

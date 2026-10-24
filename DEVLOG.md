@@ -619,3 +619,26 @@ copy has to be changed with the shell, which is what the instruction now says.
 `tasks/`, which confirms why the copy must be edited with the shell. The frontmatter of every skill,
 agent and command parses. The real check is the next card with a control (ARQ-67).
 
+## 2026-10-24 — ARQ-75: A card's temporary files live in one folder that is removed at delivery
+
+**What:** `scripts/card_tmp.py` creates and removes `/tmp/pirca-<CARD-ID>`. The orchestrator creates it
+at intake and removes it when the card reaches review (`run-card.md`). `pirca-stage-protocol` tells
+every agent to put everything temporary inside it, with `mktemp -d -p /tmp/pirca-<CARD-ID>`, and not to
+delete it; `qa.md` uses that form in its two sections that create temporary directories. The script
+is allowed in `settings.json`. It only accepts a card id such as `ARQ-12`, and it does not follow a
+symbolic link.
+
+**Why:** card ARQ-75. The agents' `mktemp -d` folders stayed in `/tmp` until a reboot or the 10-day
+cleanup: 25 folders and 726 MB on the day this was written, most from earlier cards. Having each agent
+delete its own would break the flow, because `qa` reuses the projects that `prep` generated; the folder
+is removed once, by the orchestrator, when no stage needs it.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself.
+
+**Verification:** `card_tmp.py` was run on a test card: `clean` with nothing there says so; `create`,
+a `mktemp -p` folder with files inside and `clean` removes everything (2 files, 0.3 MB); six invalid
+ids (`../etc`, `ARQ-1;rm`, `arq-1`, `ARQ-`, empty, a full path) are rejected; a symbolic link in place
+of the folder is not followed and its target stays intact. The frontmatter of every skill, agent and
+command parses. The real check is the next card: its `/tmp/pirca-<CARD-ID>` must exist while the
+stages run and be gone when it reaches review. Docker images left by the agents are not covered.
+
