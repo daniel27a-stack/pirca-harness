@@ -48,5 +48,7 @@ The plan cannot be implemented as written (a file is not where it should be, a t
 differently, a criterion conflicts with the design). Do not invent an alternative design.
 
 ## Output
-- `tasks/<CARD-ID>/coder-summary.md`: changes, files, commits, tests run and their result.
+- `tasks/<CARD-ID>/coder-summary.md`: changes, files, commits, tests run and their result, and a
+  `## Deviations` section: every place where you did something different from `implementation.md`,
+  and why (or "None"). It ends up in the PR body, so write it for the person who reviews the PR.
 - Your result recorded as stage `coder`: `done` or `blocked`.

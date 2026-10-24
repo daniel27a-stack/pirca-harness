@@ -78,7 +78,8 @@ For each stage:
 ## 3. Delivery (you)
 1. For each worktree in `task.json`, push `feature/$ARGUMENTS` with pirca-forge `push`.
 2. Write the PR body to `tasks/$ARGUMENTS/pr-body.md` (English: scope, the acceptance criteria table
-   from `qa-report.md`, link to the card, and the closing line pirca-forge defines) and open the
+   from `qa-report.md`, the `## Deviations` section of `coder-summary.md` as it is when it says
+   anything but "None", link to the card, and the closing line pirca-forge defines) and open the
    PR with pirca-forge `pr-create`, title `$ARGUMENTS: <short title in English>`.
 3. `python3 scripts/progress.py card $ARGUMENTS in-review --pr <url>`.
 4. Move the card to `en-revision` with pirca-board and add the PR URL as a comment.
