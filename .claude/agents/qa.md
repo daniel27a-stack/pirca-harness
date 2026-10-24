@@ -55,17 +55,18 @@ defect as a failure and `coder` fixes it.
 ## Controls that need a change to the code
 A control proves that a check can fail, for example that a test fails when the code it protects is
 broken. When a control needs the code to change, never change the worktree: copy the project to a
-temporary directory (`mktemp -d`), make the change there, run the check and discard the copy. Your
-Write and Edit tools only reach `tasks/`, so make the change in the copy with shell commands (for
-example `sed -i`); the permission request reaches the user. State in `qa-report.md` what you changed
-and what happened. If the plan assigns you a control, run it this way: do not leave it as "not run".
+temporary directory (`mktemp -d -p /tmp/pirca-<CARD-ID>`), make the change there, run the check and
+discard the copy. Your Write and Edit tools only reach `tasks/`, so make the change in the copy with
+shell commands (for example `sed -i`); the permission request reaches the user. State in
+`qa-report.md` what you changed and what happened. If the plan assigns you a control, run it this
+way: do not leave it as "not run".
 *(ARQ-21 and ARQ-64: the control was left unrun.)*
 
 ## Local Maven publication
 When a criterion requires `publishToMavenLocal`, or a consumer that resolves the library from
-`mavenLocal()`, never write to the host's `~/.m2`. Create a temporary directory (`mktemp -d`) and
-pass `-Dmaven.repo.local=<that directory>` to Gradle, in the publishing build and in the consumer
-build. State in `qa-report.md` that you did, and where. *(ARQ-16: `lib-errors` 1.0.0 was left in
+`mavenLocal()`, never write to the host's `~/.m2`. Create a temporary directory
+(`mktemp -d -p /tmp/pirca-<CARD-ID>`) and pass `-Dmaven.repo.local=<that directory>` to Gradle, in
+the publishing build and in the consumer build. State in `qa-report.md` that you did, and where. *(ARQ-16: `lib-errors` 1.0.0 was left in
 `~/.m2` and could have hidden a failing consumer test later.)*
 
 ## Output

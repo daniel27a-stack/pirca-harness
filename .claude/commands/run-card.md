@@ -37,6 +37,8 @@ Tools: board operations only through the `pirca-board` skill, hosting operations
    Never stop because of how the card is written (missing titles, sections or keywords):
    understanding what is wanted, and asking when it is not clear, is the BA's job.
 3. `python3 scripts/progress.py init $ARGUMENTS`, and create `metrics.json` with an empty `runs` list.
+   Also `python3 scripts/card_tmp.py create $ARGUMENTS`: the folder `/tmp/pirca-$ARGUMENTS` where
+   the agents put everything temporary.
 4. Move the card to `en-curso` with pirca-board.
 
 ## 2. Stages (subagents, in strict order, in the foreground)
@@ -81,7 +83,9 @@ For each stage:
    from `qa-report.md`, the `## Deviations` section of `coder-summary.md` as it is when it says
    anything but "None", link to the card, and the closing line pirca-forge defines) and open the
    PR with pirca-forge `pr-create`, title `$ARGUMENTS: <short title in English>`.
-3. `python3 scripts/progress.py card $ARGUMENTS in-review --pr <url>`.
+3. `python3 scripts/progress.py card $ARGUMENTS in-review --pr <url>`, and
+   `python3 scripts/card_tmp.py clean $ARGUMENTS` to remove the card's temporary folder: no stage
+   needs it any more.
 4. Move the card to `en-revision` with pirca-board and add the PR URL as a comment.
 5. Tell the user, in Spanish: PR link, AC verdicts, total tokens and time from `metrics.json`,
    and that the next step is their review and squash merge, then `/run-card $ARGUMENTS` again.

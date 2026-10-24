@@ -48,7 +48,15 @@ your result.
   explicitly: that is a finding, not a pass.
 - List exactly the files you changed and the commits you made; nothing else.
 
-## 5. Finish
+## 5. Temporary files
+Everything temporary you create (generated projects, copies for a control, a Maven local repository
+for a test) goes inside `/tmp/pirca-<CARD-ID>/`, which the orchestrator creates at the start of the
+card. Make what you need with `mktemp -d -p /tmp/pirca-<CARD-ID>`, never directly in `/tmp`. Do not
+delete the card's folder: a later stage may reuse what is in it (qa reuses what prep generated), and
+the orchestrator removes it whole when the card reaches review. Discarding a copy you made for your
+own control is fine.
+
+## 6. Finish
 End your final message with exactly one line, matching what you recorded with the script:
 `STATUS: done`, `STATUS: blocked` or (qa only) `STATUS: failed`.
 
