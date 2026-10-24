@@ -532,3 +532,24 @@ the QA commands of every profile in `repos/`, not only those of the card's repos
 `docker build` (listed by `java-skeleton`) is also allowed here. Not verified: that the ruleset rejects a direct push; its rules are the same as in
 `java-skeleton`'s.
 
+## 2026-10-23 — ARQ-63: Artifacts only have a README
+
+**What:** services and libraries carry no `CONTRIBUTING.md` and no `DEVLOG.md`: their README and the
+body of each PR cover what those files told. The agents now read the `CONTRIBUTING.md` only if the
+repository has one, and write in a `DEVLOG.md` only if it has one (as `java-skeleton` does). Changed:
+`pirca-conventions` ("Where things live"), `pirca-stage-protocol` (what to read first), `docs.md`
+(the DEVLOG step is conditional, and with nothing to write it makes no commit), `architect.md`,
+`coder.md`, `ba.md` and `repos/README.md`.
+
+**Why:** card ARQ-63. The rule that every repository has a `CONTRIBUTING.md` and a `DEVLOG.md` came
+from `java-skeleton` (ARQ-28), where the verification procedure is long. For an artifact it repeats
+its README. `lib-errors` was created without them (ARQ-62), and without this change the docs stage
+could have created a `DEVLOG.md` there.
+
+**How:** done in conversation, not by the agentic flow, because it changes the flow itself.
+
+**Verification:** the frontmatter of every skill, agent and command parses. A search of `.claude`,
+`CLAUDE.md`, `repos` and `tasks/README.md` finds no rule left that requires either file for every
+repository. The real check is the first card on `lib-errors` (ARQ-21): its docs stage must not
+create a `DEVLOG.md`.
+
